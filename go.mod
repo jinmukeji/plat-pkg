@@ -11,7 +11,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible // indirect
 	github.com/gobwas/glob v0.2.3
-	github.com/hashicorp/consul/api v1.1.0
+	github.com/hashicorp/consul/api v1.2.0
 	github.com/jinmukeji/go-pkg v0.0.0-20191004044456-0aded5c0032f
 	github.com/jinmukeji/proto v0.0.0-20191006061359-d74fb967d82b
 	github.com/jinzhu/gorm v1.9.11
