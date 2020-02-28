@@ -15,7 +15,7 @@ require (
 	github.com/micro/go-plugins/micro/cors/v2 v2.0.3
 	github.com/micro/go-plugins/micro/metadata/v2 v2.0.3
 	github.com/micro/go-plugins/wrapper/service/v2 v2.0.3
-	github.com/micro/micro/v2 v2.1.1
+	github.com/micro/micro/v2 v2.2.0
 	github.com/samfoo/ansi v0.0.0-20160124022901-b6bd2ded7189 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/smallstep/assert v0.0.0-20200103212524-b99dc1097b15 // indirect
