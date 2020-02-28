@@ -347,6 +347,8 @@ github.com/micro/go-micro v1.18.0/go.mod h1:klwUJL1gkdY1MHFyz+fFJXn52dKcty4hoe95
 github.com/micro/go-micro/v2 v2.0.0/go.mod h1:v7QP5UhKRt37ixjJe8DouWmg0/eE6dltr5h0idJ9BpE=
 github.com/micro/go-micro/v2 v2.1.2 h1:r2pu9OckjG+vHD1Ttpwbsj9UnYAHnEiYa3ND1ejL6Do=
 github.com/micro/go-micro/v2 v2.1.2/go.mod h1:6RewFTFMI5H5CbuQymu4eS0cFtqYsdGFruMflWT36IQ=
+github.com/micro/go-micro/v2 v2.2.0 h1:WASFwRocvaJD5tiH7y9tQuu8w0ZVnXtPc0JqClgVALI=
+github.com/micro/go-micro/v2 v2.2.0/go.mod h1:6RewFTFMI5H5CbuQymu4eS0cFtqYsdGFruMflWT36IQ=
 github.com/micro/go-plugins/logger/logrus/v2 v2.0.3 h1:4sriYx+oC3VpvyYveSMO5G0DFzI+Ej7vU99ENuwWNhU=
 github.com/micro/go-plugins/logger/logrus/v2 v2.0.3/go.mod h1:vflymLbJ7KGPcylvdC2nf/0J/hIw7HiZ7Vgh/A3Urp0=
 github.com/micro/go-plugins/micro/cors/v2 v2.0.3 h1:0PpBv5/JG7cfqirHIIfL4ehV+pxeIWdq0BaDImUJeK4=
