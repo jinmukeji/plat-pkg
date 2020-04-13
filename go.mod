@@ -34,6 +34,6 @@ require (
 	github.com/smallstep/assert v0.0.0-20200103212524-b99dc1097b15 // indirect
 	github.com/smallstep/cli v0.13.3
 	github.com/stretchr/testify v1.5.1
-	go.etcd.io/etcd v3.3.18+incompatible
+	go.etcd.io/etcd v3.3.20+incompatible
 	gopkg.in/yaml.v2 v2.2.8
 )
