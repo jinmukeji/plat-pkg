@@ -322,6 +322,8 @@ github.com/micro/go-plugins/logger/logrus/v2 v2.3.0 h1:oIoX4BzjwY8P6hPANY9KnQLp3
 github.com/micro/go-plugins/logger/logrus/v2 v2.3.0/go.mod h1:a/QR/ZNFutYJjaviuwAMSozWZsa1/IXo96/9QFpHcVY=
 github.com/micro/go-plugins/micro/cors/v2 v2.3.0 h1:UDjIP7jK9saUdmDFhobuvsuio4OciwswKA+Zpfx2j08=
 github.com/micro/go-plugins/micro/cors/v2 v2.3.0/go.mod h1:gZP711hDlt9UkVbt49buhQB95BunkL0lWsroztmpVr4=
+github.com/micro/go-plugins/micro/cors/v2 v2.5.0 h1:NtUXxrkhuLLuY14QblfPHrKYZZ6O05PUFBxsUJnkxW8=
+github.com/micro/go-plugins/micro/cors/v2 v2.5.0/go.mod h1:Yx+esXVsusFNAmf+X+lON1Qyqxz9pdIALXG90BsKqtg=
 github.com/micro/go-plugins/micro/metadata/v2 v2.3.0 h1:5XEucQUaCFjhflhEV4c9fLhRa0rG6t6lIO4zD+fJIFs=
 github.com/micro/go-plugins/micro/metadata/v2 v2.3.0/go.mod h1:tM0qGn4c9U76lqZV8kOYoYgKAU3Z+4FpLBNvWRlGL2M=
 github.com/micro/go-plugins/wrapper/service/v2 v2.3.0 h1:7l1aMdyhEywUA5MlrC41remZ2YD8rB4psCkmd+bZYco=
