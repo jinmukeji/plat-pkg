@@ -324,6 +324,8 @@ github.com/micro/go-plugins/micro/cors/v2 v2.3.0 h1:UDjIP7jK9saUdmDFhobuvsuio4Oc
 github.com/micro/go-plugins/micro/cors/v2 v2.3.0/go.mod h1:gZP711hDlt9UkVbt49buhQB95BunkL0lWsroztmpVr4=
 github.com/micro/go-plugins/micro/metadata/v2 v2.3.0 h1:5XEucQUaCFjhflhEV4c9fLhRa0rG6t6lIO4zD+fJIFs=
 github.com/micro/go-plugins/micro/metadata/v2 v2.3.0/go.mod h1:tM0qGn4c9U76lqZV8kOYoYgKAU3Z+4FpLBNvWRlGL2M=
+github.com/micro/go-plugins/micro/metadata/v2 v2.5.0 h1:vag/+QacIViqujQY4OhTcKnCCvFm+JzkwgWss7Imkqw=
+github.com/micro/go-plugins/micro/metadata/v2 v2.5.0/go.mod h1:jQasWsxQADjWJ/GjgRSWszmzLvOxYNQGae3QV1iFxUQ=
 github.com/micro/go-plugins/wrapper/service/v2 v2.3.0 h1:7l1aMdyhEywUA5MlrC41remZ2YD8rB4psCkmd+bZYco=
 github.com/micro/go-plugins/wrapper/service/v2 v2.3.0/go.mod h1:1x4IXp4+BGurb+nugw9/Di36SfK0XLOuJqtVlqDHOIk=
 github.com/micro/mdns v0.3.0 h1:bYycYe+98AXR3s8Nq5qvt6C573uFTDPIYzJemWON0QE=
