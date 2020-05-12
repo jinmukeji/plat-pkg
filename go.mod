@@ -27,5 +27,5 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/smallstep/cli v0.14.3
 	github.com/stretchr/testify v1.5.1
-	gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.3.0
 )
