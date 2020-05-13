@@ -6,13 +6,13 @@ replace (
 	// FIXME: 由于 etcd 与 gRPC 的兼容问题，暂时使用定制的 etcd 版本
 	// https://github.com/etcd-io/etcd/issues/11721
 	github.com/coreos/etcd => github.com/skyjia/etcd v3.3.20-grpc1.27-origmodule+incompatible
-    
+
 	github.com/micro/go-micro/v2 => github.com/micro/go-micro/v2 v2.6.0
 	github.com/micro/micro/v2 => github.com/micro/micro/v2 v2.6.0
 )
 
 require (
-	github.com/coreos/etcd v3.3.18+incompatible
+	github.com/coreos/etcd v3.3.20+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gobwas/glob v0.2.3
