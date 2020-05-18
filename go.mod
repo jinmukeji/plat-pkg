@@ -26,7 +26,7 @@ require (
 	github.com/micro/go-plugins/micro/cors/v2 v2.5.0
 	github.com/micro/go-plugins/micro/metadata/v2 v2.5.0
 	github.com/micro/go-plugins/wrapper/service/v2 v2.5.0
-	github.com/micro/micro/v2 v2.6.0
+	github.com/micro/micro/v2 v2.7.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/smallstep/cli v0.14.3
 	github.com/stretchr/testify v1.5.1
