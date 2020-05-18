@@ -21,7 +21,7 @@ require (
 	github.com/juju/ansiterm v0.0.0-20180109212912-720a0952cc2a // indirect
 	github.com/lunixbochs/vtclean v1.0.0 // indirect
 	github.com/micro/cli/v2 v2.1.2
-	github.com/micro/go-micro/v2 v2.6.0
+	github.com/micro/go-micro/v2 v2.7.0
 	github.com/micro/go-plugins/logger/logrus/v2 v2.5.0
 	github.com/micro/go-plugins/micro/cors/v2 v2.5.0
 	github.com/micro/go-plugins/micro/metadata/v2 v2.5.0
