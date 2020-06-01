@@ -16,7 +16,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gobwas/glob v0.2.3
-	github.com/jinmukeji/go-pkg/v2 v2.4.1
+	github.com/jinmukeji/go-pkg/v2 v2.4.2
 	github.com/jinzhu/gorm v1.9.12
 	github.com/micro/cli/v2 v2.1.2
 	github.com/micro/go-micro/v2 v2.8.0
