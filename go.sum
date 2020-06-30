@@ -484,6 +484,8 @@ github.com/micro/go-plugins/wrapper/service/v2 v2.8.0/go.mod h1:is18MUPlGECZlS6o
 github.com/micro/micro/v2 v2.8.0/go.mod h1:VTIGqEBLAMh22q72DnGd95iJSQY/3yvXd9GIIooQ69c=
 github.com/micro/micro/v2 v2.9.1 h1:S+vNSiuO2jeohwDNPvhShbsQofxPY5cxURehUbmicwo=
 github.com/micro/micro/v2 v2.9.1/go.mod h1:43njO1TfH6Lq+Ic+FhSNMt3szaI1TyRnmW9XnaMkJl8=
+github.com/micro/micro/v2 v2.9.2 h1:pGdCOzjbKdYnp5u6dpasA3v8jFOFA6USaMgyV/08am4=
+github.com/micro/micro/v2 v2.9.2/go.mod h1:43njO1TfH6Lq+Ic+FhSNMt3szaI1TyRnmW9XnaMkJl8=
 github.com/miekg/dns v1.1.15/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/miekg/dns v1.1.27 h1:aEH/kqUzUxGJ/UHcEKdJY+ugH6WEzsEBBSPa8zuy1aM=
 github.com/miekg/dns v1.1.27/go.mod h1:KNUDUusw/aVsxyTYZM1oqvCicbwhgbNgztCETuNZ7xM=
