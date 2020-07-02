@@ -30,7 +30,7 @@ require (
 	github.com/micro/micro/v2 v2.9.1
 	github.com/rs/xid v1.2.1
 	github.com/sirupsen/logrus v1.6.0
-	github.com/smallstep/cli v0.14.4
+	github.com/smallstep/cli v0.14.6
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.26.0
 	gopkg.in/yaml.v2 v2.3.0

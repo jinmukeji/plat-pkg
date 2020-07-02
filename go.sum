@@ -73,6 +73,7 @@ github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkY
 github.com/asaskevich/govalidator v0.0.0-20180720115003-f9ffefc3facf/go.mod h1:lB+ZfQJz7igIIfQNfa7Ml4HSf2uFQQRzpGGRXenZAgY=
 github.com/aws/aws-sdk-go v1.19.18/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.23.0/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
+github.com/aws/aws-sdk-go v1.30.29/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU8YkpAk0=
 github.com/aws/aws-sdk-go v1.31.7/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU8YkpAk0=
 github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f/go.mod h1:AuiFmCCPBSrqvVMvuqFuk0qogytodnVFVSN5CeJB8Gc=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
@@ -215,6 +216,7 @@ github.com/go-lintpack/lintpack v0.5.2/go.mod h1:NwZuYi2nUHho8XEIZ6SIxihrnPoqBTD
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
 github.com/go-ole/go-ole v1.2.1/go.mod h1:7FAglXiTm7HKlQRDeOQ6ZNUHidzCWXuZWq/1dTyBNF8=
+github.com/go-piv/piv-go v1.5.0/go.mod h1:ON2WvQncm7dIkCQ7kYJs+nc3V4jHGfrrJnSF8HKy7Gk=
 github.com/go-sql-driver/mysql v1.4.1/go.mod h1:zAC/RDZ24gD3HViQzih4MyKcchzm+sOG5ZlKdlhCg5w=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
@@ -664,11 +666,15 @@ github.com/smallstep/assert v0.0.0-20180720014142-de77670473b5/go.mod h1:TC9A4+R
 github.com/smallstep/assert v0.0.0-20200103212524-b99dc1097b15 h1:kSImCuenAkXtCaBeQ1UhmzzJGRhSm8sVH7I3sHE2Qdg=
 github.com/smallstep/assert v0.0.0-20200103212524-b99dc1097b15/go.mod h1:MyOHs9Po2fbM1LHej6sBUT8ozbxmMOFG+E+rx/GSGuc=
 github.com/smallstep/certificates v0.14.4/go.mod h1:Y9ug0+ZTB0k22BBV/2K+LAZIVDCMjAAtbQ0XWS+E870=
+github.com/smallstep/certificates v0.14.5/go.mod h1:zzpB8wMz967gL8FmK6zvCNB4pDVwFDKjPg1diTVc1h8=
 github.com/smallstep/certinfo v1.2.1/go.mod h1:1gQJekdPwPvUwFWGTi7bZELmQT09cxC9wJ0VBkBNiwU=
 github.com/smallstep/certinfo v1.3.0/go.mod h1:1gQJekdPwPvUwFWGTi7bZELmQT09cxC9wJ0VBkBNiwU=
 github.com/smallstep/cli v0.14.3/go.mod h1:U3WVQBS6udgpyHg+d0FQxodNGXBwikoXbERyfgcAhs8=
 github.com/smallstep/cli v0.14.4 h1:oaaGwY1iNSHmIC6baiJhdZoLGmXJ0rXyRcxl3Q73SDE=
 github.com/smallstep/cli v0.14.4/go.mod h1:cI1F2o1ugIcP1qklLPBECfeR7v7mFxVE6pVNQIMNWpA=
+github.com/smallstep/cli v0.14.5/go.mod h1:mRFuqC3cGwQESBGJvog4o76jZZZ7bMjkE+hAnq2QyR8=
+github.com/smallstep/cli v0.14.6 h1:xc9rawDKB70Vgvg10gfQAh9EpDWS3k1O002J5bApqUk=
+github.com/smallstep/cli v0.14.6/go.mod h1:Gs9mXwk5tIBlSISt1tvCAMso7eEAiJRyNgR/6JsoojI=
 github.com/smallstep/nosql v0.3.0/go.mod h1:QG7gNOpidifn99MjZaiNbm7HPesIyBd97F/OfacNz8Q=
 github.com/smallstep/truststore v0.9.3/go.mod h1:PRSkpRIhAYBK/KLWkHNgRdYgzWMEy45bN7PSJCfKKGE=
 github.com/smallstep/zcrypto v0.0.0-20200203191936-fbc32cf76bce/go.mod h1:+F24VU3UCxfVFvvqgm5jNUFQOm/L6ed13ImwWGFgg/g=
