@@ -498,6 +498,8 @@ github.com/micro/go-plugins/micro/metadata/v2 v2.8.0 h1:clgPh32Hz6IcnnKgZPCAuElZ
 github.com/micro/go-plugins/micro/metadata/v2 v2.8.0/go.mod h1:uJ4SqxR3mBL+EhaJO8GUB26jB3r6NBtEE1Sl6U2GB6c=
 github.com/micro/go-plugins/wrapper/service/v2 v2.8.0 h1:gduvcgnzZ/jx2mUbYIMVSwjsC/FHPXfl9Y1xnutaCMM=
 github.com/micro/go-plugins/wrapper/service/v2 v2.8.0/go.mod h1:is18MUPlGECZlS6o2VjQr45zs9iij5mXG0eTuedqn3k=
+github.com/micro/go-plugins/wrapper/service/v2 v2.9.1 h1:7GptagVuEwagO6UhxDLlu9ZhOfH+UXY/5fALknbvBp8=
+github.com/micro/go-plugins/wrapper/service/v2 v2.9.1/go.mod h1:8D4z3LC0fyayEDrK8FWQV35AUN0SEROJlAoD0yil1xY=
 github.com/micro/micro/v2 v2.8.0/go.mod h1:VTIGqEBLAMh22q72DnGd95iJSQY/3yvXd9GIIooQ69c=
 github.com/micro/micro/v2 v2.9.3 h1:20tSy6OEFQFcxQpSj+MRWpwtJPzXP1upCX3V9KsG3Wk=
 github.com/micro/micro/v2 v2.9.3/go.mod h1:YsjUsRTTjtBw07MnEYeglNLCZjgvrbmdQFKfTuC9AYk=

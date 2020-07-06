@@ -27,7 +27,7 @@ require (
 	github.com/micro/go-plugins/logger/logrus/v2 v2.8.0
 	github.com/micro/go-plugins/micro/cors/v2 v2.8.0
 	github.com/micro/go-plugins/micro/metadata/v2 v2.8.0
-	github.com/micro/go-plugins/wrapper/service/v2 v2.8.0
+	github.com/micro/go-plugins/wrapper/service/v2 v2.9.1
 	github.com/micro/micro/v2 v2.9.3
 	github.com/rs/xid v1.2.1
 	github.com/sirupsen/logrus v1.6.0
