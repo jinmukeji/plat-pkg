@@ -494,11 +494,14 @@ github.com/micro/go-plugins/logger/logrus/v2 v2.8.0 h1:UwzwrS6OIDC1bkSbvq8iq/s0F
 github.com/micro/go-plugins/logger/logrus/v2 v2.8.0/go.mod h1:GcJxDP2C0BXzmupVWfZr2tD76akDDmAkzclEWcOBwq4=
 github.com/micro/go-plugins/micro/cors/v2 v2.8.0 h1:W12kTSeCk0v4h4q17FvkCwactbi04U0JUltGiWcgwPM=
 github.com/micro/go-plugins/micro/cors/v2 v2.8.0/go.mod h1:m9pEe6+MVxUu617TXl79onXvsYgM8bHFXsIb1FoY7q4=
+github.com/micro/go-plugins/micro/cors/v2 v2.9.1 h1:h8UkIEjN1VYfIukH6Tu+7pnUFDfRW72JdqfWf/vxeYI=
+github.com/micro/go-plugins/micro/cors/v2 v2.9.1/go.mod h1:2bBfIoVZzsoaTaKvH3HJj6TR8hYq90NJ6Huw+jm9NKs=
 github.com/micro/go-plugins/micro/metadata/v2 v2.8.0 h1:clgPh32Hz6IcnnKgZPCAuElZK1S1e2tV6Qe4A0gRlt4=
 github.com/micro/go-plugins/micro/metadata/v2 v2.8.0/go.mod h1:uJ4SqxR3mBL+EhaJO8GUB26jB3r6NBtEE1Sl6U2GB6c=
 github.com/micro/go-plugins/wrapper/service/v2 v2.8.0 h1:gduvcgnzZ/jx2mUbYIMVSwjsC/FHPXfl9Y1xnutaCMM=
 github.com/micro/go-plugins/wrapper/service/v2 v2.8.0/go.mod h1:is18MUPlGECZlS6o2VjQr45zs9iij5mXG0eTuedqn3k=
 github.com/micro/micro/v2 v2.8.0/go.mod h1:VTIGqEBLAMh22q72DnGd95iJSQY/3yvXd9GIIooQ69c=
+github.com/micro/micro/v2 v2.9.1/go.mod h1:43njO1TfH6Lq+Ic+FhSNMt3szaI1TyRnmW9XnaMkJl8=
 github.com/micro/micro/v2 v2.9.3 h1:20tSy6OEFQFcxQpSj+MRWpwtJPzXP1upCX3V9KsG3Wk=
 github.com/micro/micro/v2 v2.9.3/go.mod h1:YsjUsRTTjtBw07MnEYeglNLCZjgvrbmdQFKfTuC9AYk=
 github.com/miekg/dns v1.1.15/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
