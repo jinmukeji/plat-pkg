@@ -13,7 +13,7 @@ replace (
 )
 
 require (
-	github.com/coreos/etcd v3.3.18+incompatible
+	github.com/coreos/etcd v3.3.25+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-sql-driver/mysql v1.5.0
