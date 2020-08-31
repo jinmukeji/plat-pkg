@@ -20,8 +20,6 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/jinmukeji/go-pkg/v2 v2.4.2
 	github.com/jinzhu/gorm v1.9.16
-	github.com/juju/ansiterm v0.0.0-20180109212912-720a0952cc2a // indirect
-	github.com/lunixbochs/vtclean v1.0.0 // indirect
 	github.com/micro/cli/v2 v2.1.2
 	github.com/micro/go-micro/v2 v2.9.1
 	github.com/micro/go-plugins/logger/logrus/v2 v2.9.1
@@ -31,7 +29,7 @@ require (
 	github.com/micro/micro/v2 v2.9.3
 	github.com/rs/xid v1.2.1
 	github.com/sirupsen/logrus v1.6.0
-	github.com/smallstep/cli v0.15.0
+	github.com/smallstep/cli v0.15.1
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.26.0
 	gopkg.in/yaml.v2 v2.3.0
