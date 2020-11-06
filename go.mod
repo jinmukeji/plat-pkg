@@ -31,6 +31,6 @@ require (
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smallstep/cli v0.15.3
 	github.com/stretchr/testify v1.6.1
-	google.golang.org/grpc v1.32.0
+	google.golang.org/grpc v1.33.2
 	gopkg.in/yaml.v2 v2.3.0
 )
