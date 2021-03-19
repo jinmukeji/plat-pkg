@@ -3,7 +3,7 @@ package whitelist
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"gopkg.in/yaml.v2"
@@ -27,7 +27,7 @@ func LoadPreset(data []byte) (Presets, error) {
 
 // LoadPresetFromYamlFile 从单个 yaml 配置文件加载
 func LoadPresetFromYamlFile(file string) (Presets, error) {
-	content, err := ioutil.ReadFile(file)
+	content, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func LoadPresetFromYamlFile(file string) (Presets, error) {
 func LoadPresetFormYamlDir(dir string) (Presets, error) {
 	r := make(Presets)
 
-	files, err := ioutil.ReadDir(dir)
+	files, err := os.ReadDir(dir)
 	if err != nil {
 		return nil, err
 	}

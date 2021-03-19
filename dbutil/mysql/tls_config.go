@@ -4,12 +4,12 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"errors"
-	"io/ioutil"
+	"os"
 )
 
 func NewTLSConfig(rootCert string) (*tls.Config, error) {
 	rootCertPool := x509.NewCertPool()
-	pem, err := ioutil.ReadFile(rootCert)
+	pem, err := os.ReadFile(rootCert)
 	if err != nil {
 		return nil, err
 	}

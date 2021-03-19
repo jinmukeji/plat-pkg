@@ -3,7 +3,7 @@ package jwt
 import (
 	"crypto/rsa"
 	"errors"
-	"io/ioutil"
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/smallstep/cli/crypto/pemutil"
@@ -33,7 +33,7 @@ func LoadRSAPrivateKey(key []byte) (*rsa.PrivateKey, error) {
 
 // LoadRSAPublicKeyFromPEM 从PEM公钥文件 file 中加载 RSA 公钥
 func LoadRSAPublicKeyFromPEM(file string) (*rsa.PublicKey, error) {
-	f, err := ioutil.ReadFile(file)
+	f, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}

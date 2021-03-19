@@ -1,7 +1,7 @@
 package whitelist
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"gopkg.in/yaml.v2"
@@ -66,7 +66,7 @@ func LoadPolicy(data []byte) (*WhitelistPolicy, error) {
 
 // LoadPolicyFromYamlFile 从单个 yaml 配置文件加载
 func LoadPolicyFromYamlFile(file string) (*WhitelistPolicy, error) {
-	content, err := ioutil.ReadFile(file)
+	content, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func LoadPolicyFromYamlFile(file string) (*WhitelistPolicy, error) {
 func LoadPolicyFormYamlDir(dir string) ([]*WhitelistPolicy, error) {
 	r := make([]*WhitelistPolicy, 0)
 
-	files, err := ioutil.ReadDir(dir)
+	files, err := os.ReadDir(dir)
 	if err != nil {
 		return nil, err
 	}
