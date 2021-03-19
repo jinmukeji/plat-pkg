@@ -2,7 +2,7 @@ package file
 
 import (
 	"crypto/rsa"
-	"io/ioutil"
+	"os"
 	"path"
 	"strings"
 
@@ -81,7 +81,7 @@ func (s *FileStore) Load(dir string, id string) error {
 }
 
 func loadTextFile(file string) (string, error) {
-	dat, err := ioutil.ReadFile(file)
+	dat, err := os.ReadFile(file)
 	if err != nil {
 		return "", err
 	}

@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"text/template"
@@ -22,7 +21,7 @@ func main() {
 	flag.Parse()
 
 	// 读取 error 配置文件
-	data, _ := ioutil.ReadFile(cfgFile)
+	data, _ := os.ReadFile(cfgFile)
 	doc := struct {
 		PkgName      string
 		ErrConstList []ErrConst

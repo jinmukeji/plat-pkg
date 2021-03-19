@@ -1,10 +1,11 @@
 SOURCE_FILES?=./...
 
 export PATH := ./bin:$(PATH)
-export GO111MODULE := on
 export GOPATH := $(shell go env GOPATH)
+export GO111MODULE := on
 export GOPROXY := https://goproxy.io,direct
 export GOPRIVATE := github.com/jinmukeji/*
+
 export GOVERSION := $(shell go version | awk '{print $$3}')
 # GORELEASER is the path to the goreleaser binary.
 export GORELEASER := $(shell which goreleaser)
@@ -13,25 +14,28 @@ export GORELEASER := $(shell which goreleaser)
 all: release
 .PHONY: all
 
-# Install all the build and lint dependencies
+# Install all the tools and dependencies"
 setup:
-	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s
-	#curl -L https://git.io/misspell | sh
+	[ -x "$(GORELEASER)" ] || ( brew update && brew install goreleaser/tap/goreleaser )
+	# golangci-lint
+	brew install golangci-lint
 .PHONY: setup
 
+
 # Update go packages
-go-update:
+go-mod-update:
+	@echo "Checking updated go packages..."
+	@go list -u -m all
 	@echo "Updating go packages..."
 	@go get -u -t ./...
-	@echo "go mod tidy..."
 	@$(MAKE) go-mod-tidy
 .PHONY: go-update
 
 # Clean go.mod
 go-mod-tidy:
 	@go mod tidy -v
-	# @git --no-pager diff HEAD
-	# @git --no-pager diff-index --quiet HEAD
+	# git --no-pager diff HEAD
+	# git --no-pager diff-index --quiet HEAD
 .PHONY: go-mod-tidy
 
 # Reset go.mod
@@ -39,8 +43,6 @@ go-mod-reset:
 	@rm -f go.sum
 	@sed -i '' -e '/^require/,/^)/d' go.mod
 	@go mod tidy -v
-	# @git --no-pager diff HEAD
-	# @git --no-pager diff-index --quiet HEAD
 .PHONY: go-mod-tidy
 
 generate:
@@ -64,7 +66,7 @@ build:
 
 # Go test all
 test:
-	@go test -v ./...
+	@go test ./...
 .PHONY: test
 
 # Run all code checks
