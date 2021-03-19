@@ -6,13 +6,21 @@ export GO111MODULE := on
 export GOPROXY := https://goproxy.io,direct
 export GOPRIVATE := github.com/jinmukeji/*
 
-# Install all the build and lint dependencies
+export GOVERSION := $(shell go version | awk '{print $$3}')
+# GORELEASER is the path to the goreleaser binary.
+export GORELEASER := $(shell which goreleaser)
+
+# all is the default target
+all: release
+.PHONY: all
+
+# Install all the tools and dependencies"
 setup:
+	[ -x "$(GORELEASER)" ] || ( brew update && brew install goreleaser/tap/goreleaser )
 	# golangci-lint
 	brew install golangci-lint
-	# misspell
-	# curl -L https://git.io/misspell | sh
 .PHONY: setup
+
 
 # Update go packages
 go-mod-update:
@@ -48,7 +56,7 @@ format:
 
 # Run all the linters
 lint:
-	@golangci-lint run
+	@golangci-lint run --allow-parallel-runners
 .PHONY: lint
 
 # Go build all
@@ -65,4 +73,10 @@ test:
 ci: generate format lint build test
 .PHONY: ci
 
-.DEFAULT_GOAL := ci
+# Release wia goreleaser
+release:
+	@[ -x "$(GORELEASER)" ] || ( echo "goreleaser not installed"; exit 1)
+	@goreleaser --snapshot --skip-publish --rm-dist
+.PHONY: release
+
+.DEFAULT_GOAL := all
