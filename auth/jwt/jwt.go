@@ -172,18 +172,19 @@ func HMACVerifyCustomJWT(tokenString string, opt HMACVerifyOption, claims Claims
 		}
 
 		// 获取header中的kid
-		if _, ok := token.Header["kid"]; !ok {
+		kkid, ok := token.Header["kid"]
+		if !ok {
 			return nil, fmt.Errorf("jwt header kid not found")
 		}
 
-		kid, ok := token.Header["kid"].(string)
+		kid, ok := kkid.(string)
 		if !ok {
 			return nil, fmt.Errorf("can not convert kid to string")
 		}
 
 		// 如果kid对应的key找不到则报错
 		if _, ok := opt.SecretKeys[kid]; !ok {
-			return nil, fmt.Errorf("unable to find matching key for kid : %s", kid)
+			return nil, fmt.Errorf("unable to find matching key for kid: %s", kid)
 		}
 
 		return opt.SecretKeys[kid], nil
