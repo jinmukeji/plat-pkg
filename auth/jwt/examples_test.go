@@ -40,3 +40,29 @@ func ExampleRSAVerifyCustomJWT() {
 	}
 	fmt.Println("Claims:", claims)
 }
+
+func ExampleHMACVerifyCustomJWT() {
+	// MyClaims is a custom claims
+	type MyClaims struct {
+		jwt.StandardClaims
+
+		AccessToken string `json:"access_token"`
+	}
+
+	claims := &MyClaims{}
+
+	m := make(map[string][]byte)
+	m["a"] = []byte("BQysRAXxfa4MjD5ta6p51AULAdQc1bGHJJVWsRRNQCTvqZpztWm3sJErB7MgZYYeqQkdkxpT0xyjhXDoySZdraq7OHcqksQCccIHtDHqu0ujrug4qI78EGgPeeZASpKqxnVibqDLqvpnFrb8BTrIfRz8VXe4Ncv4DIZLyqUMoILflIJvabtfuv1i51km4BIPIDR6Vvw5pratnEqcLgNQipd25fHooEZtj1X70oF3A0uVFggnmljk6XEbSL3ZbEIs")
+	opt := jwt.HMACVerifyOption{
+		MaxExpInterval: 10 * time.Minute,
+		SecretKeys:     m,
+	}
+
+	token := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb20uamlubXVoZWFsdGguaGprIiwiZXhwIjoxNjIyNDQ0MjkxLCJzdWIiOiJoamsiLCJpYXQiOjE2MjI0NDM5OTEsImFjY2Vzc190b2tlbiI6IjJhYzc4ZGFjLTY4YTMtNDZjYi1iNzYxLWZmMjFmMjEwMGI3MSJ9.4A26iyNXPAZWemIs5P68Z2dOSciAh7IkqX8ldsLyQas"
+	ok, err := jwt.HMACVerifyCustomJWT(token, opt, claims)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(ok)
+	fmt.Println(claims)
+}
