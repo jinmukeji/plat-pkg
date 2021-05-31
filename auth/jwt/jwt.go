@@ -60,6 +60,12 @@ type VerifyOption struct {
 	GetPublicKeyFunc GetPublicKeyFunc // PublicKey 查找函数
 }
 
+// HMACVerifyOption 验证参数
+type HMACVerifyOption struct {
+	MaxExpInterval time.Duration // 最大过期时间间隔，单位为秒.
+	SecretKey      map[string][]byte
+}
+
 // RSAVerifyCustomJWT 使用 RSA 算法（RS256/RS384/RS512) 对包含自定义 Claims 的 JWT Token 进行验证.
 func RSAVerifyCustomJWT(tokenString string, opt VerifyOption, claims Claims) (bool, error) {
 	// Parse takes the token string and a function for looking up the key. The latter is especially
@@ -146,5 +152,47 @@ func RSAVerifyJWT(tokenString string, opt VerifyOption) (bool, *jwt.StandardClai
 		return true, stdClaims, nil
 	} else {
 		return false, nil, err
+	}
+}
+
+// HMACVerifyCustomJWT 使用 HMAC 算法 (HS256, HS384, HS512) 对包含自定义 Claims 的 JWT Token 进行验证.
+func HMACVerifyCustomJWT(tokenString string, opt HMACVerifyOption, claims Claims) (bool, error) {
+	// Parse takes the token string and a function for looking up the key. The latter is especially
+	// useful if you use multiple keys for your application.  The standard is to use 'kid' in the
+	// head of the token to identify which key to use, but the parsed token (head and claims) is provided
+	// to the callback, providing flexibility.
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		// Don't forget to validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			// Support: HS256, HS384, HS512
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+
+		// 获取header中的kid
+		if _, ok := token.Header["kid"]; !ok {
+			return nil, fmt.Errorf("jwt header kid not found")
+		}
+
+		kid, ok := token.Header["kid"].(string)
+		if !ok {
+			return nil, fmt.Errorf("can not convert kid to string")
+		}
+
+		return opt.SecretKey[kid], nil
+	})
+
+	if token == nil {
+		return false, ErrEmptyToken
+	}
+
+	if token.Valid {
+		inr := float64(claims.GetExpiresAt() - claims.GetIssuedAt())
+		if inr > opt.MaxExpInterval.Seconds() {
+			return false, fmt.Errorf("expiration interval exceeds the limit: %fs", opt.MaxExpInterval.Seconds())
+		}
+
+		return true, nil
+	} else {
+		return false, err
 	}
 }
