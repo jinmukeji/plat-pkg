@@ -63,7 +63,10 @@ type VerifyOption struct {
 // HMACVerifyOption 验证参数
 type HMACVerifyOption struct {
 	MaxExpInterval time.Duration // 最大过期时间间隔，单位为秒.
-	SecretKey      map[string][]byte
+	// app-key与密钥的对应关系
+	// key: app-key
+	// value : 密钥的byte数组
+	SecretKeys map[string][]byte
 }
 
 // RSAVerifyCustomJWT 使用 RSA 算法（RS256/RS384/RS512) 对包含自定义 Claims 的 JWT Token 进行验证.
@@ -178,7 +181,12 @@ func HMACVerifyCustomJWT(tokenString string, opt HMACVerifyOption, claims Claims
 			return nil, fmt.Errorf("can not convert kid to string")
 		}
 
-		return opt.SecretKey[kid], nil
+		// 如果kid对应的key找不到则报错
+		if _, ok := opt.SecretKeys[kid]; !ok {
+			return nil, fmt.Errorf("unable to find matching key for kid : %s", kid)
+		}
+
+		return opt.SecretKeys[kid], nil
 	})
 
 	if token == nil {
