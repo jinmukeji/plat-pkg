@@ -183,11 +183,12 @@ func HMACVerifyCustomJWT(tokenString string, opt HMACVerifyOption, claims Claims
 		}
 
 		// 如果kid对应的key找不到则报错
-		if _, ok := opt.SecretKeys[kid]; !ok {
+		secretKey, ok := opt.SecretKeys[kid]
+		if !ok {
 			return nil, fmt.Errorf("unable to find matching key for kid: %s", kid)
 		}
 
-		return opt.SecretKeys[kid], nil
+		return secretKey, nil
 	})
 
 	if token == nil {
