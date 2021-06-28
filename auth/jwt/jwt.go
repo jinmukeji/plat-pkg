@@ -54,10 +54,19 @@ func signJWT(method jwt.SigningMethod, key interface{}, claims jwt.Claims) (stri
 // GetPublicKeyFunc 根据 iss 获取一个 rsa.PublicKey
 type GetPublicKeyFunc func(iss string) *rsa.PublicKey
 
+// GetPublicKeyByKidFunc 根据 kid 获取一个 rsa.PublicKey
+type GetPublicKeyByKidFunc func(kid string) *rsa.PublicKey
+
 // VerifyOption 验证参数
 type VerifyOption struct {
 	MaxExpInterval   time.Duration    // 最大过期时间间隔，单位为秒.
 	GetPublicKeyFunc GetPublicKeyFunc // PublicKey 查找函数
+}
+
+// KidVerifyOption 验证参数
+type KidVerifyOption struct {
+	MaxExpInterval   time.Duration         // 最大过期时间间隔，单位为秒.
+	GetPublicKeyFunc GetPublicKeyByKidFunc // PublicKey 查找函数
 }
 
 // HMACVerifyOption 验证参数
@@ -133,6 +142,59 @@ func RSAVerifyJWT(tokenString string, opt VerifyOption) (bool, *jwt.StandardClai
 
 		if opt.GetPublicKeyFunc != nil {
 			key := opt.GetPublicKeyFunc(claims.Issuer)
+
+			if key != nil {
+				return key, nil
+			}
+		}
+
+		return nil, ErrNoPublicKey
+	})
+
+	if token == nil {
+		return false, nil, ErrEmptyToken
+	}
+
+	if token.Valid {
+		inr := float64(stdClaims.ExpiresAt - stdClaims.IssuedAt)
+		if inr > opt.MaxExpInterval.Seconds() {
+			return false, nil, fmt.Errorf("expiration interval exceeds the limit: %fs", opt.MaxExpInterval.Seconds())
+		}
+
+		return true, stdClaims, nil
+	} else {
+		return false, nil, err
+	}
+}
+
+// RSAVerifyJWTWithKid 使用 RSA 算法（RS256/RS384/RS512) 对 JWT Token 进行验证.
+func RSAVerifyJWTWithKid(tokenString string, opt KidVerifyOption) (bool, *jwt.StandardClaims, error) {
+	var stdClaims *jwt.StandardClaims
+
+	// Parse takes the token string and a function for looking up the key. The latter is especially
+	// useful if you use multiple keys for your application.  The standard is to use 'kid' in the
+	// head of the token to identify which key to use, but the parsed token (head and claims) is provided
+	// to the callback, providing flexibility.
+	token, err := jwt.ParseWithClaims(tokenString, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		// Don't forget to validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+			// Support: RS256, RS384, RS512
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+
+		// 获取header中的kid
+		kkid, ok := token.Header["kid"]
+		if !ok {
+			return nil, fmt.Errorf("jwt header kid not found")
+		}
+
+		kid, ok := kkid.(string)
+		if !ok {
+			return nil, fmt.Errorf("can not convert kid to string")
+		}
+
+		if opt.GetPublicKeyFunc != nil {
+			key := opt.GetPublicKeyFunc(kid)
 
 			if key != nil {
 				return key, nil
