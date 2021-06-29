@@ -66,3 +66,28 @@ func ExampleHMACVerifyCustomJWT() {
 	fmt.Println(ok)
 	fmt.Println(claims)
 }
+
+func ExampleRSAVerifyJWTWithKid() {
+
+	token := "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImhteSJ9.eyJpc3MiOiJjb20uamlubXVoZWFsdGguaG15IiwiZXhwIjoxNjI0OTM2NDIwLCJzdWIiOiJobXkiLCJpYXQiOjE2MjQ5MzYxMjB9.rSEgdLncgTtec19dV7VDo0tr_nTbfXl2qVqW96ezRR7aM5MPHuppSVCs-bgFkBiEEXGqKPNxOYprEKlSmAXwQGhQ7HGc6vdCe1GE0GqK0j0Bs_kihicmUCAP9AZU-hoqN98wm4wBO-z51Tc1Sio8ZTRig7ICp3OvlCvA9ZkFg694WuCSJNBIG-8JEUzJxNY1kaXwlxN7jQLW_zyNrFAeIyOSTCeITgL9a7VOA85l0VB36mjBY30uZNyOmUOnAurukfYkQxlEpU9d0E0vVcvtcpszU-ahT53WoNHmSWhdfcTkU9eGUucV0RNUQKVHdkqU75gx5diCO5F8mQIfzAJ_Eg"
+	key, err := jwt.LoadRSAPublicKeyFromPEM("./a.pem")
+	if err != nil {
+		panic(err)
+	}
+
+	opt := jwt.KidVerifyOption{
+		MaxExpInterval: 10 * time.Minute,
+		GetPublicKeyFunc: func(iss string) *rsa.PublicKey {
+			// ignore iss check
+
+			return key
+		},
+	}
+
+	valid, claims, err := jwt.RSAVerifyJWTWithKid(token, opt)
+	fmt.Printf("IsValid: %v\n", valid)
+	if err != nil {
+		fmt.Printf("Validation Error: %v\n", err)
+	}
+	fmt.Println("Claims:", claims)
+}
