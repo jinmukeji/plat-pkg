@@ -182,6 +182,14 @@ func RSAVerifyJWTWithKid(tokenString string, opt KidVerifyOption) (bool, *jwt.St
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 
+		// 获取claims
+		claims, ok := token.Claims.(*jwt.StandardClaims)
+		if !ok {
+			return nil, ErrParseClaimsFailed
+		}
+
+		stdClaims = claims
+
 		// 获取header中的kid
 		kkid, ok := token.Header["kid"]
 		if !ok {
