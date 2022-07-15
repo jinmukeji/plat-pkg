@@ -9,7 +9,7 @@ import (
 	"github.com/micro/go-micro/v2/client"
 	"github.com/micro/go-micro/v2/server"
 
-	wsvc "github.com/micro/go-plugins/wrapper/service/v2"
+	wsvc "github.com/go-micro/plugins/v2/wrapper/service"
 
 	wcid "github.com/jinmukeji/plat-pkg/v2/micro/handler/cid"
 	wlog "github.com/jinmukeji/plat-pkg/v2/micro/handler/log"

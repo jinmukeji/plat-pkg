@@ -16,24 +16,24 @@ replace (
 )
 
 require (
-	github.com/coreos/etcd v3.3.18+incompatible
+	github.com/coreos/etcd v3.3.27+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/gin-gonic/gin v1.6.3
-	github.com/go-sql-driver/mysql v1.5.0
+	github.com/gin-gonic/gin v1.8.1
+	github.com/go-micro/plugins/v2/logger/logrus v0.0.0-20220711144004-e3081cf21c80
+	github.com/go-micro/plugins/v2/micro/cors v0.0.0-20220711144004-e3081cf21c80
+	github.com/go-micro/plugins/v2/micro/metadata v0.0.0-20220711144004-e3081cf21c80
+	github.com/go-micro/plugins/v2/wrapper/service v0.0.0-20220711144004-e3081cf21c80
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gobwas/glob v0.2.3
 	github.com/jinmukeji/go-pkg/v2 v2.6.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/micro/cli/v2 v2.1.2
 	github.com/micro/go-micro/v2 v2.9.1
-	github.com/micro/go-plugins/logger/logrus/v2 v2.9.1
-	github.com/micro/go-plugins/micro/cors/v2 v2.9.1
-	github.com/micro/go-plugins/micro/metadata/v2 v2.9.1
-	github.com/micro/go-plugins/wrapper/service/v2 v2.9.1
 	github.com/micro/micro/v2 v2.9.3
-	github.com/rs/xid v1.2.1
+	github.com/rs/xid v1.4.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smallstep/cli v0.15.0
-	github.com/stretchr/testify v1.7.0
-	google.golang.org/grpc v1.26.0
+	github.com/stretchr/testify v1.8.0
+	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v2 v2.4.0
 )

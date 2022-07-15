@@ -7,8 +7,8 @@ import (
 	"github.com/micro/cli/v2"
 	"github.com/sirupsen/logrus"
 
+	mll "github.com/go-micro/plugins/v2/logger/logrus"
 	ml "github.com/micro/go-micro/v2/logger"
-	mll "github.com/micro/go-plugins/logger/logrus/v2"
 )
 
 const (
