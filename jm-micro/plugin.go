@@ -13,9 +13,9 @@ import (
 
 	// "github.com/jinmukeji/plat-pkg/v2/jm-micro/plugins/whitelist"
 
-	"github.com/micro/go-plugins/micro/cors/v2"
+	"github.com/go-micro/plugins/v2/micro/cors"
 	// "github.com/micro/go-plugins/micro/gzip"
-	"github.com/micro/go-plugins/micro/metadata/v2"
+	"github.com/go-micro/plugins/v2/micro/metadata"
 
 	"github.com/micro/micro/v2/client/api"
 	"github.com/micro/micro/v2/plugin"
