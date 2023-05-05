@@ -18,7 +18,7 @@ replace (
 require (
 	github.com/coreos/etcd v3.3.27+incompatible
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/gin-gonic/gin v1.8.1
+	github.com/gin-gonic/gin v1.9.0
 	github.com/go-micro/plugins/v2/logger/logrus v0.0.0-20220711144004-e3081cf21c80
 	github.com/go-micro/plugins/v2/micro/cors v0.0.0-20220711144004-e3081cf21c80
 	github.com/go-micro/plugins/v2/micro/metadata v0.0.0-20220711144004-e3081cf21c80
@@ -33,7 +33,8 @@ require (
 	github.com/rs/xid v1.4.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smallstep/cli v0.15.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
+	github.com/ugorji/go v1.2.7 // indirect
 	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v2 v2.4.0
 )
