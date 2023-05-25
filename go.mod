@@ -9,6 +9,9 @@ replace (
 	//  https://github.com/etcd-io/etcd/pull/11823
 	github.com/coreos/etcd => github.com/skyjia/etcd v3.3.22-grpc1.27-origmodule+incompatible
 
+	// cli包缺失移植到金姆健康
+	github.com/micro/cli/v2 => github.com/jinmukeji/jm-micro/v2 v2.0.0
+
 	// FIXME: etcd 与 grpc 1.30+ 版本不兼容，此处降级到 v0.15.2
 	github.com/smallstep/cli => github.com/smallstep/cli v0.15.2
 	// FIXME: etcd 与 grpc 1.30+ 版本不兼容，此处降级到 1.29
