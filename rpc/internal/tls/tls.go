@@ -1,18 +1,14 @@
 package tls
 
-// FIXME: go-micro/v2 默认采用 gRPC 方式，TLS设定方式此处不再适用，考虑后续移除掉。
-
 import (
-	"github.com/micro/cli/v2"
-	"github.com/micro/go-micro/v2/client"
-	"github.com/micro/go-micro/v2/server"
-	"github.com/micro/go-micro/v2/transport"
-
 	mlog "github.com/jinmukeji/go-pkg/v2/log"
+	"github.com/urfave/cli/v2"
+	"go-micro.dev/v4/client"
+	"go-micro.dev/v4/server"
+	"go-micro.dev/v4/transport"
 )
 
 var (
-	// log is the package global logger
 	log = mlog.StandardLogger()
 )
 
@@ -41,7 +37,7 @@ func SetupTLS(c *cli.Context) error {
 		// 设置 Client 启用 TLS
 		err := client.DefaultClient.Init(
 			client.Transport(
-				transport.NewTransport(transport.Secure(true)),
+				transport.NewHTTPTransport(transport.Secure(true)),
 			),
 		)
 		if err != nil {
@@ -59,7 +55,7 @@ func SetupTLS(c *cli.Context) error {
 		// 设置 Server 启用 TLS
 		err := server.DefaultServer.Init(
 			server.Transport(
-				transport.NewTransport(transport.Secure(true)),
+				transport.NewHTTPTransport(transport.Secure(true)),
 			),
 		)
 		if err != nil {

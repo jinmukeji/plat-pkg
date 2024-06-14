@@ -7,7 +7,7 @@ import (
 	"os"
 	"text/template"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -53,10 +53,6 @@ type ErrConst struct {
 	Msg     string
 	Comment string
 }
-
-// func (c ErrConst) Def() string {
-// 	return fmt.Sprintf("Err%s", c.Key)
-// }
 
 func (c ErrConst) CommentLine() string {
 	return fmt.Sprintf("// %s %s", c.Key, c.Comment)

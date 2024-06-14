@@ -6,22 +6,14 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-// StandardConfig 创建一个标准的 *mysql.Config
+// NewConfig 创建一个标准的 *mysql.Config
 func NewConfig() *mysql.Config {
 	cfg := mysql.NewConfig()
 
 	// 显式设定以下关键参数
-
-	// https://github.com/go-sql-driver/mysql#timetime-support
 	cfg.ParseTime = true
-
-	// https://github.com/go-sql-driver/mysql#unicode-support
 	cfg.Collation = "utf8mb4_general_ci"
-
-	// https://github.com/go-sql-driver/mysql#loc
 	cfg.Loc = time.UTC
-
-	// 默认使用 tcp 网络连接
 	cfg.Net = "tcp"
 
 	return cfg

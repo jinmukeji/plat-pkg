@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	// log is the package global logger
 	log = mlog.StandardLogger()
 )
 
@@ -28,7 +27,7 @@ func PrintFullVersionInfo(v VersionInfo) {
 	fmt.Println("Go:", v.GetGoVersion())
 }
 
-// LogVersionInfo 日式输出版本信息
+// LogVersionInfo 日志输出版本信息
 func LogVersionInfo(v VersionInfo) {
 	log.Infof("Product: %s %s", v.GetProductName(), v.GetProductVersion())
 	log.Infof("Git Commit: %s", v.GetGitCommit())

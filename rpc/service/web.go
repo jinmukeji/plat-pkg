@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/micro/cli/v2"
-	"github.com/micro/go-micro/v2/web"
+	ilog "github.com/jinmukeji/plat-pkg/v4/rpc/internal/log"
 
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/config"
-	ilog "github.com/jinmukeji/plat-pkg/v2/rpc/internal/log"
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/version"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/config"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/version"
+	"github.com/urfave/cli/v2"
+	"go-micro.dev/v4/web"
 )
 
 type WebOptions struct {
@@ -28,17 +28,10 @@ func NewWebOptions(namespace, name string) *WebOptions {
 }
 
 func CreateWeb(opts *WebOptions) web.Service {
-	// jmSvc:= newJMService(opts)
-
 	// 设置 service，并且加载配置信息
 	svc := newWebService(opts)
 	err := setupWebService(svc, opts)
 	die(err)
-
-	// 设置 server
-	// srv := svc.Server()
-	// err = setupServer(srv, opts)
-	// die(err)
 
 	return svc
 }
@@ -53,7 +46,6 @@ func newWebService(opts *WebOptions) web.Service {
 		web.Version(opts.ProductVersion),
 
 		// Fault Tolerance - Heartbeating
-		// 	 See also: https://micro.mu/docs/fault-tolerance.html#heartbeating
 		web.RegisterTTL(defaultRegisterTTL),
 		web.RegisterInterval(defaultRegisterInterval),
 
@@ -97,12 +89,6 @@ func setupWebService(svc web.Service, opts *WebOptions) error {
 			// 启动阶段打印版本号
 			// 由于内部使用到了 logger，需要在 logger 被设置后调用
 			version.LogVersionInfo(opts)
-
-			// 设置 TLS
-			// err := setupTLS(c)
-			// if err != nil {
-			// 	return err
-			// }
 
 			// 加载 config
 			err := config.SetupConfig(c)

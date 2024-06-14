@@ -14,7 +14,7 @@ func NewTLSConfig(rootCert string) (*tls.Config, error) {
 		return nil, err
 	}
 	if ok := rootCertPool.AppendCertsFromPEM(pem); !ok {
-		return nil, errors.New("Failed to append PEM.")
+		return nil, errors.New("failed to append PEM")
 	}
 
 	return &tls.Config{

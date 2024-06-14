@@ -17,5 +17,6 @@ func LoggerFromContext(ctx context.Context) *logrus.Entry {
 	if l, ok := ctx.Value(loggerContextKey{}).(*logrus.Entry); ok {
 		return l
 	}
+
 	return nil
 }

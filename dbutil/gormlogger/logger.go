@@ -1,14 +1,13 @@
 package gormlogger
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-
 	"database/sql/driver"
 	"fmt"
 	"reflect"
 	"regexp"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinmukeji/go-pkg/v2/log"
 	"github.com/sirupsen/logrus"
 )
@@ -21,18 +20,18 @@ type GormLogger struct {
 	level  log.Level
 }
 
-// New Create new logger with custom database name and host
-// Defaults to use logrus.INFO level.
+// New 通过数据库名和地址创建新的 Logger
+// 默认的日志等级为 logrus.INFO
 func New(host, name string) *GormLogger {
 	return NewWithLevel(host, name, log.GetLevel())
 }
 
-// NewWithLevel Create new logger with custom database name, host and logurs.Level
+// NewWithLevel 通过数据库地址、名称和日志登记创建 Logger
 func NewWithLevel(host, name string, level log.Level) *GormLogger {
 	return NewWithLogger(host, name, log.StandardLogger(), level)
 }
 
-// NewWithLogger Create new logger with custom database name, host and logger
+// NewWithLogger 通过数据库名称、地址、Logger和日志登记创建日志器
 func NewWithLogger(host, name string, logger *log.Logger, level log.Level) *GormLogger {
 	return &GormLogger{
 		DBHost: host,
@@ -42,21 +41,24 @@ func NewWithLogger(host, name string, logger *log.Logger, level log.Level) *Gorm
 	}
 }
 
+// LogMode 设置 logger 等级
+func (l *GormLogger) LogMode(level log.Level) *GormLogger {
+	newlogger := *l
+	newlogger.level = level
+	return &newlogger
+}
+
 var sqlRegexp = regexp.MustCompile(`(\$\d+)|\?`)
 
 // Print 打印日志
 func (l *GormLogger) Print(values ...interface{}) {
-	entry := l.logger.
-		WithField("dbhost", l.DBHost).
-		WithField("dbname", l.DBName)
+	entry := l.logger.WithField("dbhost", l.DBHost).WithField("dbname", l.DBName)
 
 	if len(values) > 1 {
 		level := values[0]
 		source := values[1]
 		entry = entry.WithField("src", source)
 		if level == "sql" {
-			// sql: values
-			//  [sql main.go:51 687.158µs select * from client where 1=1 or 1=? or 'a'=?; [2 A] 0]
 			duration := values[2]
 			var formattedValues []interface{}
 			for _, value := range values[4].([]interface{}) {
@@ -88,5 +90,4 @@ func (l *GormLogger) Print(values ...interface{}) {
 	} else {
 		entry.Error(values...)
 	}
-
 }

@@ -4,12 +4,11 @@ import (
 	"context"
 	"strings"
 
-	"github.com/micro/go-micro/v2"
-	me "github.com/micro/go-micro/v2/errors"
-	"github.com/micro/go-micro/v2/metadata"
-	"github.com/micro/go-micro/v2/server"
-
-	"github.com/jinmukeji/plat-pkg/v2/micro/errors"
+	"github.com/jinmukeji/plat-pkg/v4/micro/errors"
+	"go-micro.dev/v4"
+	me "go-micro.dev/v4/errors"
+	"go-micro.dev/v4/metadata"
+	"go-micro.dev/v4/server"
 )
 
 // 错误样式
@@ -18,7 +17,7 @@ const (
 	ErrStyleSimple = "microsimple"
 	// ErrStyleDetailed 详细模式错误输出样式。通常用于面向开发者或系统运维人员输出，本样式输出内部错误信息。
 	ErrStyleDetailed = "microdetailed"
-	// ErrStyleDetailed Micro原始错误输出样式。
+	// ErrStyleRaw Micro原始错误输出样式。
 	ErrStyleRaw = "raw"
 )
 
@@ -37,7 +36,7 @@ func MicroErrWrapper(fn server.HandlerFunc) server.HandlerFunc {
 			var rErr error
 
 			style := errorStyleFromContext(ctx)
-			rErr = err // init default
+			rErr = err
 
 			switch style {
 			case ErrStyleSimple:
@@ -81,13 +80,9 @@ func wrapError(ctx context.Context, detail string) error {
 }
 
 func errorStyleFromContext(ctx context.Context) string {
-	style := ErrStyleRaw // default
+	style := ErrStyleRaw
 
 	if md, ok := metadata.FromContext(ctx); ok {
-		// available style:
-		//  - RpcError
-		//  - MicroSimple
-		//  - MicroDetailed
 		style = md[ErrorStyleMetaKey]
 		style = strings.ToLower(style)
 	}

@@ -1,10 +1,9 @@
 package file_test
 
 import (
-	"github.com/jinmukeji/plat-pkg/v2/auth/jwt/keystore/file"
-
 	"testing"
 
+	"github.com/jinmukeji/plat-pkg/v4/auth/jwt/keystore/file"
 	"github.com/stretchr/testify/suite"
 )
 

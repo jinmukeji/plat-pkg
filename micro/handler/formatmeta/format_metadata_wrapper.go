@@ -3,13 +3,13 @@ package formatmeta
 import (
 	"context"
 
-	"github.com/micro/go-micro/v2/server"
+	pm "github.com/jinmukeji/plat-pkg/v4/micro/meta"
 
-	pm "github.com/jinmukeji/plat-pkg/v2/micro/meta"
-	"github.com/micro/go-micro/v2/metadata"
+	"go-micro.dev/v4/metadata"
+	"go-micro.dev/v4/server"
 )
 
-// FormatMetadataWrapper is a handler wrapper that format all metadata keys. [Deprecated]
+// FormatMetadataWrapper 格式化所有 metadata keys
 func FormatMetadataWrapper(fn server.HandlerFunc) server.HandlerFunc {
 
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {

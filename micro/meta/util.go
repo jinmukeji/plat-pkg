@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/micro/go-micro/v2/metadata"
+	"go-micro.dev/v4/metadata"
 )
 
 // StandardizeKey 标准化 metadata 中使用的 key
@@ -20,7 +20,6 @@ func MustGet(ctx context.Context, key string) string {
 	if v, ok := metadata.Get(ctx, key); ok {
 		return v
 	}
-
 	return ""
 }
 

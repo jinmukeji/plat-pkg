@@ -1,8 +1,6 @@
 package jwt
 
-import (
-	"github.com/dgrijalva/jwt-go"
-)
+import "github.com/dgrijalva/jwt-go"
 
 type Claims interface {
 	jwt.Claims
@@ -15,7 +13,7 @@ type Claims interface {
 	GetIssuedAt() int64
 }
 
-// StandardClaims is a wrapper for jwt.StandardClaims.
+// StandardClaims is a wrapper for jwt.StandardClaims
 type StandardClaims struct {
 	jwt.StandardClaims
 }
@@ -24,7 +22,6 @@ func (c *StandardClaims) GetIssuer() string {
 	if c == nil {
 		return ""
 	}
-
 	return c.Issuer
 }
 
@@ -32,7 +29,6 @@ func (c *StandardClaims) GetExpiresAt() int64 {
 	if c == nil {
 		return 0
 	}
-
 	return c.ExpiresAt
 }
 
@@ -40,6 +36,5 @@ func (c *StandardClaims) GetIssuedAt() int64 {
 	if c == nil {
 		return 0
 	}
-
 	return c.IssuedAt
 }

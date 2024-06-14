@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/jinmukeji/plat-pkg/v2/auth/jwt"
+	"github.com/jinmukeji/plat-pkg/v4/auth/jwt"
 )
 
 const (
