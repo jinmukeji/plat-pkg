@@ -15,7 +15,7 @@ var (
 	ErrEmptyToken        = errors.New("token is empty")
 )
 
-// CreateClaims 根据 issuer 与国旗时间间隔创建一个 JWT Claims.
+// CreateClaims 根据 issuer 与过期时间间隔创建一个 JWT Claims.
 // 例如，issuer 可以是一个 APP ID.
 func CreateClaims(issuer string, inr time.Duration) jwt.Claims {
 	now := time.Now()
