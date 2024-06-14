@@ -4,7 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type WhitelistPolicy struct {
@@ -60,7 +60,6 @@ func LoadPolicy(data []byte) (*WhitelistPolicy, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &w, nil
 }
 
@@ -70,12 +69,11 @@ func LoadPolicyFromYamlFile(file string) (*WhitelistPolicy, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return LoadPolicy(content)
 }
 
-// LoadPolicyFormYamlDir 从文件目录中加载所有 yaml 文件定义的配置，重复定义将返回错误
-func LoadPolicyFormYamlDir(dir string) ([]*WhitelistPolicy, error) {
+// LoadPolicyFromYamlDir 从文件目录中加载所有 yaml 文件定义的配置，重复定义将返回错误
+func LoadPolicyFromYamlDir(dir string) ([]*WhitelistPolicy, error) {
 	r := make([]*WhitelistPolicy, 0)
 
 	files, err := os.ReadDir(dir)

@@ -3,12 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/jinmukeji/plat-pkg/v2/experiments/whitelist"
+	"github.com/jinmukeji/plat-pkg/v4/experiments/whitelist"
 )
 
 func main() {
-	//    p,err:= whitelist.LoadPresetFromYamlFile("../testdata/preset/all-in-one.yml")
-	p, err := whitelist.LoadPolicyFormYamlDir("../testdata/policy")
+	p, err := whitelist.LoadPolicyFromYamlDir("../testdata/policy")
 	fmt.Println(p)
 	fmt.Println(err)
 }

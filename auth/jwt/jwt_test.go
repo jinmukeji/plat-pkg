@@ -3,13 +3,13 @@ package jwt_test
 import (
 	"crypto/rsa"
 	"fmt"
+	"testing"
 	"time"
 
-	"github.com/jinmukeji/plat-pkg/v2/auth/jwt"
+	"github.com/jinmukeji/plat-pkg/v4/auth/jwt"
 )
 
-func ExampleRSAVerifyCustomJWT() {
-	// MyClaims is a custom claims
+func TestRSAVerifyCustomJWT(t *testing.T) {
 	type MyClaims struct {
 		jwt.StandardClaims
 
@@ -19,14 +19,12 @@ func ExampleRSAVerifyCustomJWT() {
 	token := "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTQwNTMyMTQsImlhdCI6MTU5NDA1MjYxNCwiaXNzIjoiYXBwLXRlc3QxIn0.Xj2bALCrcIMHLHmeeI7ipRddoxU21MmigH3EBr9T_wygkZiZyzOOs-KU2VKuwMhnVsI0vU1iQKs0lCoHt8hSUGddHBjQ4oXcgfo9LWeKl0mluAeVzuBVsI-cZqDAapn5vKRrHvw2IsF-luJNB9th9-HY3_4Nif7OOKGc7DoYkzy-gazKl1lqOH76cy9jQBZ_FNYyKKh28_FgBECxoOogAfakyclPLfXjIxqvpAMMYYp3x0Gbeb1NtRToLNEHeJBEAs1W3vgCQ9i3DF2F1PP3XKHWifUp6MANMgt3w1ghPxxUK2MRHe1oX6wnu652GtspKQ0EJq5GnWMTie0KdRZCfw"
 	key, err := jwt.LoadRSAPublicKeyFromPEM("public_key.pem")
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	opt := jwt.VerifyOption{
 		MaxExpInterval: 10 * time.Minute,
 		GetPublicKeyFunc: func(iss string) *rsa.PublicKey {
-			// ignore iss check
-
 			return key
 		},
 	}
@@ -41,8 +39,7 @@ func ExampleRSAVerifyCustomJWT() {
 	fmt.Println("Claims:", claims)
 }
 
-func ExampleHMACVerifyCustomJWT() {
-	// MyClaims is a custom claims
+func TestHMACVerifyCustomJWT(t *testing.T) {
 	type MyClaims struct {
 		jwt.StandardClaims
 
@@ -67,19 +64,16 @@ func ExampleHMACVerifyCustomJWT() {
 	fmt.Println(claims)
 }
 
-func ExampleRSAVerifyJWTWithKid() {
-
+func TestRSAVerifyJWTWithKid(t *testing.T) {
 	token := "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImhteSJ9.eyJpc3MiOiJjb20uamlubXVoZWFsdGguaG15IiwiZXhwIjoxNjI0OTM2NDIwLCJzdWIiOiJobXkiLCJpYXQiOjE2MjQ5MzYxMjB9.rSEgdLncgTtec19dV7VDo0tr_nTbfXl2qVqW96ezRR7aM5MPHuppSVCs-bgFkBiEEXGqKPNxOYprEKlSmAXwQGhQ7HGc6vdCe1GE0GqK0j0Bs_kihicmUCAP9AZU-hoqN98wm4wBO-z51Tc1Sio8ZTRig7ICp3OvlCvA9ZkFg694WuCSJNBIG-8JEUzJxNY1kaXwlxN7jQLW_zyNrFAeIyOSTCeITgL9a7VOA85l0VB36mjBY30uZNyOmUOnAurukfYkQxlEpU9d0E0vVcvtcpszU-ahT53WoNHmSWhdfcTkU9eGUucV0RNUQKVHdkqU75gx5diCO5F8mQIfzAJ_Eg"
-	key, err := jwt.LoadRSAPublicKeyFromPEM("./a.pem")
+	key, err := jwt.LoadRSAPublicKeyFromPEM("a.pem")
 	if err != nil {
 		panic(err)
 	}
 
 	opt := jwt.KidVerifyOption{
 		MaxExpInterval: 10 * time.Minute,
-		GetPublicKeyFunc: func(iss string) *rsa.PublicKey {
-			// ignore iss check
-
+		GetPublicKeyFunc: func(kid string) *rsa.PublicKey {
 			return key
 		},
 	}

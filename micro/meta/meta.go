@@ -1,17 +1,15 @@
 package meta
 
-import (
-	"context"
-)
+import "context"
 
 const (
-	// MetaKeyCid Metadata 中 cid 的 key.
+	// MetaKeyCid Metadata 中 cid 的 key
 	MetaKeyCid = "x-cid"
 
-	// MetaKeyJwt Metadata 中 jwt 的 key.
+	// MetaKeyJwt Metadata 中 jwt 的 key
 	MetaKeyJwt = "x-jwt"
 
-	// MetaKeyAppId Metadata 中 APP ID 的 key.
+	// MetaKeyAppId Metadata 中 APP ID 的 key
 	MetaKeyAppId = "x-app-id"
 )
 

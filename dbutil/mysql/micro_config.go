@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-sql-driver/mysql"
 
-	"github.com/micro/go-micro/v2/config"
-	"github.com/micro/go-micro/v2/config/reader"
+	"go-micro.dev/v4/config"
+	"go-micro.dev/v4/config/reader"
 )
 
 type microDbOptions struct {

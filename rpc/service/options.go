@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	"github.com/micro/cli/v2"
+	"github.com/urfave/cli/v2"
 )
 
 type options struct {
@@ -12,23 +12,13 @@ type options struct {
 	// 微服务的名称
 	Name string
 
-	// ProductVersion is current product version.
 	ProductVersion string
-	// GitCommit is the git commit short hash
-	GitCommit string
-	// GoVersion is go compiler version `go version`
-	GoVersion string
-	// BuildTime is go build time
-	BuildTime string
-
-	// Flags are CLI flags
-	Flags []cli.Flag
-
-	// CliPreAction 在标准 Action 之前调用
-	CliPreAction func(c *cli.Context)
-
-	// CliPostAction 在标准 Action 之后调用
-	CliPostAction func(c *cli.Context)
+	GitCommit      string
+	GoVersion      string
+	BuildTime      string
+	Flags          []cli.Flag
+	CliPreAction   func(c *cli.Context)
+	CliPostAction  func(c *cli.Context)
 }
 
 // FQDN 返回微服务的全名
@@ -40,7 +30,6 @@ func (opts *options) FQDN() string {
 	return fmt.Sprintf("%s.%s", opts.Namespace, opts.Name)
 }
 
-// ServiceMetadata 返回微服务的 metadata
 func (opts *options) ServiceMetadata() map[string]string {
 	if opts == nil {
 		return nil

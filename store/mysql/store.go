@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/jinmukeji/plat-pkg/v2/dbutil/mysql"
-	"github.com/jinmukeji/plat-pkg/v2/store"
+	"github.com/jinmukeji/plat-pkg/v4/dbutil/mysql"
+	"github.com/jinmukeji/plat-pkg/v4/store"
 )
 
-// complains compiling error if MySqlStore doesn't implement interfaces.
 var _ store.Store = (*MySqlStore)(nil)
 
 type MySqlStore struct {
@@ -26,10 +25,10 @@ func NewStore(db *mysql.DB) *MySqlStore {
 }
 
 // 实现 store.Closer 接口
-
 func (s *MySqlStore) Close() error {
 	if s.DB != nil {
-		return s.DB.Close()
+		sql, _ := s.DB.DB()
+		return sql.Close()
 	}
 	return nil
 }
@@ -66,8 +65,6 @@ func (s *MySqlStore) GetError(ctx context.Context) error {
 	return db.Error
 }
 
-// Transaction start a transaction as a block,
-// return error will rollback, otherwise to commit.
 func (s *MySqlStore) Transaction(ctx context.Context, fc func(txs *MySqlStore) error) (err error) {
 	tx := s.BeginTx(ctx)
 	defer func() {
@@ -84,7 +81,6 @@ func (s *MySqlStore) Transaction(ctx context.Context, fc func(txs *MySqlStore) e
 		err = s.GetError(tx)
 	}
 
-	// Makesure rollback when Block error or Commit error
 	if err != nil {
 		s.RollbackTx(tx)
 	}

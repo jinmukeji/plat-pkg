@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type Presets map[string][]string
@@ -21,7 +21,6 @@ func LoadPreset(data []byte) (Presets, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return p, nil
 }
 
@@ -31,12 +30,11 @@ func LoadPresetFromYamlFile(file string) (Presets, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return LoadPreset(content)
 }
 
-// LoadPresetFormYamlDir 从文件目录中加载所有 yaml 文件定义的配置，重复定义将返回错误
-func LoadPresetFormYamlDir(dir string) (Presets, error) {
+// LoadPresetFromYamlDir 从文件目录中加载所有 yaml 文件定义的配置，重复定义将返回错误
+func LoadPresetFromYamlDir(dir string) (Presets, error) {
 	r := make(Presets)
 
 	files, err := os.ReadDir(dir)
@@ -73,7 +71,6 @@ func mergePreset(a, b Presets) (Presets, error) {
 
 	r := make(Presets)
 
-	// deep copy a to r
 	for k, v := range a {
 		r[k] = v
 	}

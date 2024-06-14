@@ -25,7 +25,6 @@ func (m *Matcher) LoadPatterns(patterns ...string) error {
 		}
 		m.globCache[p] = g
 	}
-
 	return nil
 }
 
@@ -34,7 +33,6 @@ func (m *Matcher) Match(pattern, service, method string) (bool, error) {
 	if !ok {
 		return false, errors.New("pattern is not found")
 	}
-
 	return matchG(g, service, method)
 }
 
@@ -49,16 +47,12 @@ func Match(pattern, service, method string) bool {
 }
 
 func matchG(g glob.Glob, service, method string) (bool, error) {
-	// service or method shouldn't be empty
 	if service == "" {
 		return false, errors.New("service should not be empty")
 	}
-
 	if method == "" {
 		return false, errors.New("method should not be empty")
 	}
-
 	s := combineCall(service, method)
-
 	return g.Match(s), nil
 }
