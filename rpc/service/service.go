@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/go-micro/plugins/v4/registry/etcd"
 	ilog "github.com/jinmukeji/plat-pkg/v4/rpc/internal/log"
 	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/version"
 
@@ -70,7 +71,11 @@ func newService(opts *ServiceOptions) micro.Service {
 
 		// Setup metadata
 		micro.Metadata(versionMeta),
+
+		// Setup etcd
+		micro.Registry(etcd.NewRegistry()),
 	}
+
 	if len(opts.ServiceOptions) > 0 {
 		svcOpts = append(svcOpts, opts.ServiceOptions...)
 	}
