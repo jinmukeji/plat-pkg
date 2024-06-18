@@ -8,6 +8,8 @@ import (
 	mlog "github.com/jinmukeji/go-pkg/v2/log"
 	"github.com/urfave/cli/v2"
 	"go-micro.dev/v4/config"
+	"go-micro.dev/v4/config/reader"
+	"go-micro.dev/v4/config/reader/json"
 	"go-micro.dev/v4/config/source"
 	"go-micro.dev/v4/config/source/file"
 )
@@ -51,6 +53,15 @@ func SetupConfig(c *cli.Context) error {
 
 	encoder := yaml.NewEncoder()
 
+	// 创建 yaml 配置解析器，默认为 json
+	yamlConfig, err := config.NewConfig(
+		config.WithReader(json.NewReader(reader.WithEncoder(encoder))),
+	)
+
+	if err != nil {
+		return fmt.Errorf("create yaml config error: %w", err)
+	}
+
 	cfgEtcdAddr := c.String("config_etcd_address")
 	cfgEtcdPrefix := c.String("config_etcd_prefix")
 
@@ -62,7 +73,7 @@ func SetupConfig(c *cli.Context) error {
 			source.WithEncoder(encoder),
 		)
 
-		if err := config.Load(etcdSource); err != nil {
+		if err := yamlConfig.Load(etcdSource); err != nil {
 			return fmt.Errorf("failed to load config from etcd at %s with prefix of [%s]: %w", cfgEtcdAddr, cfgEtcdPrefix, err)
 		}
 
@@ -77,7 +88,7 @@ func SetupConfig(c *cli.Context) error {
 			source.WithEncoder(encoder),
 		)
 
-		if err := config.Load(fileSource); err != nil {
+		if err := yamlConfig.Load(fileSource); err != nil {
 			return fmt.Errorf("failed to load config file %s: %w", f, err)
 		}
 
