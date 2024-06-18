@@ -67,6 +67,8 @@ github.com/go-micro/plugins/v4/config/source/etcd v1.2.0 h1:rpMLawiurR0TCNXh0lsK
 github.com/go-micro/plugins/v4/config/source/etcd v1.2.0/go.mod h1:s7HQY43lQ9K0AONe85gTTvU2vNsBCfUYP4YlxgSimBc=
 github.com/go-micro/plugins/v4/logger/logrus v1.2.0 h1:S/SeMbObrPKm6Ad0GOhjQCWo+hr5EOWYWEpcpCADEV8=
 github.com/go-micro/plugins/v4/logger/logrus v1.2.0/go.mod h1:0BDXAwSJrj2HBlRKdamo4YBB1aLMr29opain8RNhN90=
+github.com/go-micro/plugins/v4/registry/etcd v1.2.0 h1:tcHlU1GzvX3oZa8WQH8ylMCGie5qD5g98YWTESJjeqQ=
+github.com/go-micro/plugins/v4/registry/etcd v1.2.0/go.mod h1:CQeTHkjN3xMtIQsynaTTquMz2sHEdsTfRIfFzrX7aug=
 github.com/go-micro/plugins/v4/wrapper/service v1.2.0 h1:oR94tOsxm7Gi2y5uQPgb1TGcK0/GVjHeJz5xH0tiTgU=
 github.com/go-micro/plugins/v4/wrapper/service v1.2.0/go.mod h1:dVQKnbuVwHhuvXxYQZqNuIV3ldpXIf+fTIJvk3VHrkg=
 github.com/go-playground/assert/v2 v2.2.0 h1:JvknZsQTYeFEAhQwI4qEt9cyV5ONwRHC+lYKSsYSR8s=
@@ -131,6 +133,8 @@ github.com/miekg/dns v1.1.43 h1:JKfpVSCB84vrAmHzyrsxB5NAr5kLoMXZArPSw7Qlgyg=
 github.com/miekg/dns v1.1.43/go.mod h1:+evo5L0630/F6ca/Z9+GAqzhjGyn8/c+TBaOyfEl0V4=
 github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG+4E0Y=
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
+github.com/mitchellh/hashstructure v1.1.0 h1:P6P1hdjqAAknpY/M1CGipelZgp+4y9ja9kmUZPXP+H0=
+github.com/mitchellh/hashstructure v1.1.0/go.mod h1:xUDAozZz0Wmdiufv0uyhnHkUTN6/6d8ulp4AwfLKrmA=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
