@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/go-micro/plugins/v4/config/encoder/yaml"
 	"github.com/go-micro/plugins/v4/config/source/etcd"
@@ -16,12 +17,30 @@ import (
 
 var (
 	log = mlog.StandardLogger()
+
+	yamlConfig config.Config
+
+	yamlEncoder = yaml.NewEncoder()
+
+	lock sync.Once
 )
 
 // Config 相关常量
 const (
 	DefaultConfigEtcdPrefix = "/micro/config/jm/"
 )
+
+// YamlConfig 获取 yaml 配置解析器
+func YamlConfig() config.Config {
+	lock.Do(func() {
+		// 创建 yaml 解析器
+		yamlConfig, _ = config.NewConfig(
+			config.WithReader(json.NewReader(reader.WithEncoder(yamlEncoder))),
+		)
+	})
+
+	return yamlConfig
+}
 
 func MicroCliFlags() []cli.Flag {
 
@@ -51,17 +70,6 @@ func SetupConfig(c *cli.Context) error {
 	// 2. 配置文件，YAML格式
 	// 3. 环境变量（暂不实现）
 
-	encoder := yaml.NewEncoder()
-
-	// 创建 yaml 配置解析器，默认为 json
-	yamlConfig, err := config.NewConfig(
-		config.WithReader(json.NewReader(reader.WithEncoder(encoder))),
-	)
-
-	if err != nil {
-		return fmt.Errorf("create yaml config error: %w", err)
-	}
-
 	cfgEtcdAddr := c.String("config_etcd_address")
 	cfgEtcdPrefix := c.String("config_etcd_prefix")
 
@@ -70,10 +78,10 @@ func SetupConfig(c *cli.Context) error {
 		etcdSource := etcd.NewSource(
 			etcd.WithAddress(cfgEtcdAddr),
 			etcd.WithPrefix(cfgEtcdPrefix),
-			source.WithEncoder(encoder),
+			source.WithEncoder(yamlEncoder),
 		)
 
-		if err := yamlConfig.Load(etcdSource); err != nil {
+		if err := YamlConfig().Load(etcdSource); err != nil {
 			return fmt.Errorf("failed to load config from etcd at %s with prefix of [%s]: %w", cfgEtcdAddr, cfgEtcdPrefix, err)
 		}
 
@@ -85,10 +93,10 @@ func SetupConfig(c *cli.Context) error {
 	for _, f := range cfgFiles {
 		fileSource := file.NewSource(
 			file.WithPath(f),
-			source.WithEncoder(encoder),
+			source.WithEncoder(yamlEncoder),
 		)
 
-		if err := yamlConfig.Load(fileSource); err != nil {
+		if err := YamlConfig().Load(fileSource); err != nil {
 			return fmt.Errorf("failed to load config file %s: %w", f, err)
 		}
 
