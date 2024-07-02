@@ -94,9 +94,11 @@ require (
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-micro/plugins/v4/client/grpc v1.2.1
 	github.com/go-micro/plugins/v4/config/encoder/yaml v1.2.0
 	github.com/go-micro/plugins/v4/config/source/etcd v1.2.0
 	github.com/go-micro/plugins/v4/logger/logrus v1.2.0
+	github.com/go-micro/plugins/v4/server/grpc v1.2.0
 	github.com/gobwas/glob v0.2.3
 	github.com/jinmukeji/go-pkg/v2 v2.7.0
 	github.com/pkg/errors v0.9.1 // indirect

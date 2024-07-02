@@ -12,6 +12,8 @@ import (
 	wlog "github.com/jinmukeji/plat-pkg/v4/micro/handler/log"
 	wme "github.com/jinmukeji/plat-pkg/v4/micro/handler/microerr"
 
+	gclient "github.com/go-micro/plugins/v4/client/grpc"
+	gserver "github.com/go-micro/plugins/v4/server/grpc"
 	wsvc "github.com/go-micro/plugins/v4/wrapper/service"
 	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/config"
 	"github.com/urfave/cli/v2"
@@ -61,19 +63,31 @@ func newService(opts *ServiceOptions) micro.Service {
 
 	// Create a new service. Optionally include some options here.
 	svcOpts := []micro.Option{
-		// Service Basic Info
-		micro.Name(opts.FQDN()),
-		micro.Version(opts.ProductVersion),
 
-		// Fault Tolerance - Heartbeating
-		micro.RegisterTTL(defaultRegisterTTL),
-		micro.RegisterInterval(defaultRegisterInterval),
+		// 设置为 grpc server，go-micro v4 默认是 http server
+		micro.Server(
 
-		// Setup metadata
-		micro.Metadata(versionMeta),
+			// 将默认 server 替换为 grpc server 后，option 会被覆盖
+			// 所以不用修改默认 option，直接设置 grpc server option 即可
+			gserver.NewServer(
+				// Service Basic Info
+				server.Name(opts.FQDN()),
+				server.Version(opts.ProductVersion),
 
-		// Setup etcd
-		micro.Registry(etcd.NewRegistry()),
+				// Fault Tolerance - Heartbeating
+				server.RegisterTTL(defaultRegisterTTL),
+				server.RegisterInterval(defaultRegisterInterval),
+
+				// Setup metadata
+				server.Metadata(versionMeta),
+
+				// Setup registry
+				server.Registry(etcd.NewRegistry()),
+			),
+		),
+
+		// 设置为 grpc client，go-micro v4 默认是 http client
+		micro.Client(gclient.NewClient()),
 	}
 
 	if len(opts.ServiceOptions) > 0 {
