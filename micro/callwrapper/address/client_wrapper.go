@@ -3,7 +3,7 @@ package address
 import (
 	"context"
 
-	"github.com/micro/go-micro/v2/client"
+	"go-micro.dev/v4/client"
 )
 
 type addressWrapper struct {
@@ -24,6 +24,7 @@ func (w *addressWrapper) Call(ctx context.Context, req client.Request, rsp inter
 
 	return w.Client.Call(ctx, req, rsp, opts...)
 }
+
 func NewClientAddressWrapper(address string) client.Wrapper {
 	return func(c client.Client) client.Client {
 		return &addressWrapper{c, address}

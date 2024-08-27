@@ -7,15 +7,14 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Logger is the logrus logger handler
 func Logger(logger logrus.FieldLogger) gin.HandlerFunc {
+
 	return func(c *gin.Context) {
-		// other handler can change c.Path so:
+
 		path := c.Request.URL.Path
 		start := time.Now()
 		c.Next()
 		stop := time.Since(start)
-		// late:ncy := int(math.Ceil(float64(stop.Nanoseconds()) / 1000000.0))
 		latency := stop
 		statusCode := c.Writer.Status()
 		clientIP := c.ClientIP()
@@ -28,7 +27,7 @@ func Logger(logger logrus.FieldLogger) gin.HandlerFunc {
 
 		entry := logger.WithFields(logrus.Fields{
 			"status":     statusCode,
-			"latency":    latency, // time to process
+			"latency":    latency,
 			"client_ip":  clientIP,
 			"method":     c.Request.Method,
 			"path":       path,

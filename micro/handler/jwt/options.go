@@ -3,7 +3,7 @@ package jwt
 import (
 	"time"
 
-	"github.com/jinmukeji/plat-pkg/v2/micro/meta"
+	"github.com/jinmukeji/plat-pkg/v4/micro/meta"
 )
 
 type Options struct {
@@ -14,7 +14,7 @@ type Options struct {
 }
 
 const (
-	DefaultMaxExpInterval  = 10 * time.Minute // 10分钟
+	DefaultMaxExpInterval  = 10 * time.Minute
 	DefaultMicroConfigPath = "platform/app-key"
 )
 

@@ -1,6 +1,10 @@
-package matcher
+package matcher_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/jinmukeji/plat-pkg/v4/experiments/whitelist/matcher"
+)
 
 func TestMatch(t *testing.T) {
 	type args struct {
@@ -101,7 +105,7 @@ func TestMatch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Match(tt.args.pattern, tt.args.service, tt.args.method); got != tt.want {
+			if got := matcher.Match(tt.args.pattern, tt.args.service, tt.args.method); got != tt.want {
 				t.Errorf("Match() = %v, want %v", got, tt.want)
 			}
 		})

@@ -3,19 +3,20 @@ package errors
 import (
 	"fmt"
 
-	"github.com/jinmukeji/plat-pkg/v2/micro/errors/codes"
+	"github.com/jinmukeji/plat-pkg/v4/micro/errors/codes"
 )
 
-// TODO: 将这个结构体重构为接口
-
 type RpcError struct {
-	Code    codes.Code `json:"code"`    // 错误码
-	Message string     `json:"message"` // 额外的错误提示消息
-	Cause   error      `json:"cause"`   // 导致本 error 的内部 error
+	// 错误码
+	Code codes.Code `json:"code"`
+
+	// 额外的错误提示消息
+	Message string `json:"message"`
+
+	// 导致本 error 的内部 error
+	Cause error `json:"cause"`
 }
 
-// Code returns the Code of the error if it is a RpcError error, codes.OK if err
-// is nil, or codes.Unknown otherwise.
 func Code(err error) codes.Code {
 	if err == nil {
 		return codes.OK
@@ -26,7 +27,6 @@ func Code(err error) codes.Code {
 	return codes.Unknown
 }
 
-// New returns a Status representing c and msg.
 func New(c codes.Code, msg string) *RpcError {
 	return &RpcError{
 		Code:    c,
@@ -34,39 +34,32 @@ func New(c codes.Code, msg string) *RpcError {
 	}
 }
 
-// Newf returns New(c, fmt.Sprintf(format, a...)).
 func Newf(c codes.Code, format string, a ...interface{}) *RpcError {
 	return New(c, fmt.Sprintf(format, a...))
 }
 
-// Error returns an error representing c and msg.  If c is OK, returns nil.
 func Error(c codes.Code, msg string) error {
 	return New(c, msg)
 }
 
-// Errorf returns Error(c, fmt.Sprintf(format, a...)).
 func Errorf(c codes.Code, format string, a ...interface{}) error {
 	return Newf(c, format, a...)
 }
 
-// Error returns an error with cause and msg.
 func ErrorWithCause(c codes.Code, cause error, msg string) error {
 	re := New(c, msg)
 	return re.WithCause(cause)
 }
 
-// Error returns an error with cause and formatted msg.
 func ErrorfWithCause(c codes.Code, cause error, format string, a ...interface{}) error {
 	re := Newf(c, format, a...)
 	return re.WithCause(cause)
 }
 
-// WithCause encupsale an err as cause
 func (e *RpcError) WithCause(err error) *RpcError {
 	if e != nil {
 		e.Cause = err
 	}
-
 	return e
 }
 
@@ -74,8 +67,7 @@ func (e *RpcError) leading() string {
 	if e == nil {
 		return ""
 	}
-
-	return fmt.Sprintf("[errcode:%d] %s", e.Code, e.Code.Message())
+	return fmt.Sprintf("[errcode: %d] %s", e.Code, e.Code.Message())
 }
 
 func (e *RpcError) Error() string {
@@ -112,7 +104,7 @@ func (e *RpcError) DetailedError() string {
 
 func (e *RpcError) GetCode() codes.Code {
 	if e == nil {
-		return codes.OK // nil 时表示 OK
+		return codes.OK
 	}
 
 	return e.Code

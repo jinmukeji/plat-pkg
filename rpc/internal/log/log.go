@@ -3,12 +3,11 @@ package log
 import (
 	"strings"
 
+	mll "github.com/go-micro/plugins/v4/logger/logrus"
 	mlog "github.com/jinmukeji/go-pkg/v2/log"
-	"github.com/micro/cli/v2"
 	"github.com/sirupsen/logrus"
-
-	mll "github.com/go-micro/plugins/v2/logger/logrus"
-	ml "github.com/micro/go-micro/v2/logger"
+	"github.com/urfave/cli/v2"
+	ml "go-micro.dev/v4/logger"
 )
 
 const (
@@ -27,9 +26,8 @@ func MicroCliFlags() []cli.Flag {
 		},
 
 		&cli.StringFlag{
-			Name:  "log_level",
-			Usage: "Log level. [TRACE, DEBUG, INFO, WARN, ERROR, PANIC, FATAL]",
-			// the first environment variable that resolves is used as the default
+			Name:    "log_level",
+			Usage:   "Log level. [TRACE, DEBUG, INFO, WARN, ERROR, PANIC, FATAL]",
 			EnvVars: []string{"LOG_LEVEL", "MICRO_LOG_LEVEL"},
 			Value:   defaultLogLevel,
 		},
@@ -47,15 +45,13 @@ func SetupLogger(c *cli.Context, svc string) {
 			std.Fatal(err.Error())
 		} else {
 			lv = level
-			// setup standard logger
 			std.SetLevel(lv)
 		}
 	}
 	std.Infof("Log Level: %s", lv)
 
-	// Setup formatter
 	if logFormat := c.String("log_format"); strings.ToLower(logFormat) == "logstash" {
-		// logstash 日式形式下注入 svc 字段，用来输出当前 service 的名称
+		// logstash 日志形式下注入 svc 字段，用来输出当前 service 的名称
 		f := mlog.NewLogstashFormatter(logrus.Fields{
 			"svc": svc,
 		})
@@ -63,7 +59,6 @@ func SetupLogger(c *cli.Context, svc string) {
 		std.SetFormatter(f)
 	}
 
-	// Hijack micro's logger
 	ml.DefaultLogger = mll.NewLogger(
 		mll.WithLogger(std),
 	)

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/micro/cli/v2"
-	"github.com/micro/go-micro/v2/web"
+	ilog "github.com/jinmukeji/plat-pkg/v4/rpc/internal/log"
 
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/config"
-	ilog "github.com/jinmukeji/plat-pkg/v2/rpc/internal/log"
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/version"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/config"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/version"
+	"github.com/urfave/cli/v2"
+	"go-micro.dev/v4/web"
 )
 
 type WebOptions struct {
@@ -28,17 +28,20 @@ func NewWebOptions(namespace, name string) *WebOptions {
 }
 
 func CreateWeb(opts *WebOptions) web.Service {
-	// jmSvc:= newJMService(opts)
-
 	// 设置 service，并且加载配置信息
 	svc := newWebService(opts)
 	err := setupWebService(svc, opts)
 	die(err)
 
-	// 设置 server
-	// srv := svc.Server()
-	// err = setupServer(srv, opts)
-	// die(err)
+	return svc
+}
+
+// 创建网关服务
+func CreateGateway(opts *WebOptions) web.Service {
+	// 设置 service，不加载配置信息
+	svc := newWebService(opts)
+	err := setupGatewayService(svc, opts)
+	die(err)
 
 	return svc
 }
@@ -53,7 +56,6 @@ func newWebService(opts *WebOptions) web.Service {
 		web.Version(opts.ProductVersion),
 
 		// Fault Tolerance - Heartbeating
-		// 	 See also: https://micro.mu/docs/fault-tolerance.html#heartbeating
 		web.RegisterTTL(defaultRegisterTTL),
 		web.RegisterInterval(defaultRegisterInterval),
 
@@ -98,15 +100,50 @@ func setupWebService(svc web.Service, opts *WebOptions) error {
 			// 由于内部使用到了 logger，需要在 logger 被设置后调用
 			version.LogVersionInfo(opts)
 
-			// 设置 TLS
-			// err := setupTLS(c)
-			// if err != nil {
-			// 	return err
-			// }
-
 			// 加载 config
 			err := config.SetupConfig(c)
 			die(err)
+
+			if opts.CliPostAction != nil {
+				opts.CliPostAction(c)
+			}
+		}),
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// 配置网关服务，不加载配置信息
+func setupGatewayService(svc web.Service, opts *WebOptions) error {
+	// 设置启动参数
+	flags := defaultWebFlags()
+	if len(opts.Flags) > 0 {
+		flags = append(flags, opts.Flags...)
+	}
+
+	err := svc.Init(
+		// Setup runtime flags
+		web.Flags(flags...),
+
+		web.Action(func(c *cli.Context) {
+			if opts.CliPreAction != nil {
+				opts.CliPreAction(c)
+			}
+
+			if c.Bool("version") {
+				version.PrintFullVersionInfo(opts)
+				os.Exit(0)
+			}
+
+			ilog.SetupLogger(c, opts.Name)
+
+			// 启动阶段打印版本号
+			// 由于内部使用到了 logger，需要在 logger 被设置后调用
+			version.LogVersionInfo(opts)
 
 			if opts.CliPostAction != nil {
 				opts.CliPostAction(c)

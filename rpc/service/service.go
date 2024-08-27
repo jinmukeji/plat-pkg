@@ -4,29 +4,31 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/micro/cli/v2"
-	micro "github.com/micro/go-micro/v2"
-	"github.com/micro/go-micro/v2/client"
-	"github.com/micro/go-micro/v2/server"
+	"github.com/go-micro/plugins/v4/registry/etcd"
+	ilog "github.com/jinmukeji/plat-pkg/v4/rpc/internal/log"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/version"
 
-	wsvc "github.com/go-micro/plugins/v2/wrapper/service"
+	wcid "github.com/jinmukeji/plat-pkg/v4/micro/handler/cid"
+	wlog "github.com/jinmukeji/plat-pkg/v4/micro/handler/log"
+	wme "github.com/jinmukeji/plat-pkg/v4/micro/handler/microerr"
 
-	wcid "github.com/jinmukeji/plat-pkg/v2/micro/handler/cid"
-	wlog "github.com/jinmukeji/plat-pkg/v2/micro/handler/log"
-	wme "github.com/jinmukeji/plat-pkg/v2/micro/handler/microerr"
-
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/config"
-	ilog "github.com/jinmukeji/plat-pkg/v2/rpc/internal/log"
-	"github.com/jinmukeji/plat-pkg/v2/rpc/internal/version"
+	gclient "github.com/go-micro/plugins/v4/client/grpc"
+	gserver "github.com/go-micro/plugins/v4/server/grpc"
+	wsvc "github.com/go-micro/plugins/v4/wrapper/service"
+	"github.com/jinmukeji/plat-pkg/v4/rpc/internal/config"
+	"github.com/urfave/cli/v2"
+	"go-micro.dev/v4"
+	"go-micro.dev/v4/client"
+	"go-micro.dev/v4/server"
 )
 
 type ServiceOptions struct {
 	options
 
-	// PreServerHandlerWrappers 自定义HandlerWrapper，在标准 HandlerWrapper 之前注册
+	// PreServerHandlerWrappers 自定义 HandlerWrapper，在标准 HandlerWrapper 之前注册
 	PreServerHandlerWrappers []server.HandlerWrapper
 
-	// PostServerHandlerWrappers 自定义HandlerWrapper，在标准 HandlerWrapper 之后注册
+	// PostServerHandlerWrappers 自定义 HandlerWrapper，在标准 HandlerWrapper 之后注册
 	PostServerHandlerWrappers []server.HandlerWrapper
 
 	// PreClientWrappers 自定义 Client Wrapper，在标准 Wrapper 之前注册
@@ -48,17 +50,10 @@ func NewServiceOptions(namespace, name string) *ServiceOptions {
 }
 
 func CreateService(opts *ServiceOptions) micro.Service {
-	// jmSvc:= newJMService(opts)
-
 	// 设置 service，并且加载配置信息
 	svc := newService(opts)
 	err := setupService(svc, opts)
 	die(err)
-
-	// 设置 server
-	// srv := svc.Server()
-	// err = setupServer(srv, opts)
-	// die(err)
 
 	return svc
 }
@@ -68,18 +63,33 @@ func newService(opts *ServiceOptions) micro.Service {
 
 	// Create a new service. Optionally include some options here.
 	svcOpts := []micro.Option{
-		// Service Basic Info
-		micro.Name(opts.FQDN()),
-		micro.Version(opts.ProductVersion),
 
-		// Fault Tolerance - Heartbeating
-		// 	 See also: https://micro.mu/docs/fault-tolerance.html#heartbeating
-		micro.RegisterTTL(defaultRegisterTTL),
-		micro.RegisterInterval(defaultRegisterInterval),
+		// 设置为 grpc server，go-micro v4 默认是 http server
+		micro.Server(
 
-		// Setup metadata
-		micro.Metadata(versionMeta),
+			// 将默认 server 替换为 grpc server 后，option 会被覆盖
+			// 所以不用修改默认 option，直接设置 grpc server option 即可
+			gserver.NewServer(
+				// Service Basic Info
+				server.Name(opts.FQDN()),
+				server.Version(opts.ProductVersion),
+
+				// Fault Tolerance - Heartbeating
+				server.RegisterTTL(defaultRegisterTTL),
+				server.RegisterInterval(defaultRegisterInterval),
+
+				// Setup metadata
+				server.Metadata(versionMeta),
+
+				// Setup registry
+				server.Registry(etcd.NewRegistry()),
+			),
+		),
+
+		// 设置为 grpc client，go-micro v4 默认是 http client
+		micro.Client(gclient.NewClient()),
 	}
+
 	if len(opts.ServiceOptions) > 0 {
 		svcOpts = append(svcOpts, opts.ServiceOptions...)
 	}
@@ -99,7 +109,6 @@ func setupService(svc micro.Service, opts *ServiceOptions) error {
 	}
 
 	svc.Init(
-		// Setup runtime flags
 		micro.Flags(flags...),
 
 		micro.Action(func(c *cli.Context) error {
@@ -115,14 +124,8 @@ func setupService(svc micro.Service, opts *ServiceOptions) error {
 			ilog.SetupLogger(c, opts.Name)
 
 			// 启动阶段打印版本号
-			// 由于内部使用到了 logger，需要在 logger 被设置后调用
+			// 由于内部使用了 logger，需要在 logger 被设置后调用
 			version.LogVersionInfo(opts)
-
-			// 设置 TLS
-			// err := setupTLS(c)
-			// if err != nil {
-			// 	return err
-			// }
 
 			// 加载 config
 			err := config.SetupConfig(c)
@@ -153,51 +156,10 @@ func defaultFlags() []cli.Flag {
 	}
 
 	flags = append(flags, ilog.MicroCliFlags()...)
-	// flags = append(flags, tlsCliFlags()...)
 	flags = append(flags, config.MicroCliFlags()...)
-	// flags = append(flags, jwtFlags()...)
 
 	return flags
 }
-
-// JWT 相关
-// var (
-// 	jwtOption = wjwt.DefaultOptions()
-// 	enableJwt = false
-// )
-
-// func jwtFlags() []cli.Flag {
-// 	return []cli.Flag{
-// 		// JWT 相关
-// 		cli.BoolFlag{
-// 			Name:        "enable_jwt",
-// 			Usage:       "Enable JWT validation",
-// 			EnvVar:      "ENABLE_JWT",
-// 			Destination: &enableJwt,
-// 		},
-// 		cli.StringFlag{
-// 			Name:        "jwt_key",
-// 			Usage:       "JWT HTTP header key",
-// 			EnvVar:      "JWT_KEY",
-// 			Value:       cm.MetaJwtKey,
-// 			Destination: &(jwtOption.HeaderKey),
-// 		},
-// 		cli.StringFlag{
-// 			Name:        "jwt_config_path",
-// 			Usage:       "Micro config path for JWT",
-// 			EnvVar:      "JWT_CONFIG_PATH",
-// 			Value:       wjwt.DefaultMicroConfigPath,
-// 			Destination: &(jwtOption.MicroConfigPath),
-// 		},
-// 		cli.DurationFlag{
-// 			Name:        "jwt_max_exp_interval",
-// 			Usage:       "JWT max expiration interval",
-// 			EnvVar:      "JWT_MAX_EXP_INTERVAL",
-// 			Value:       wjwt.DefaultMaxExpInterval,
-// 			Destination: &(jwtOption.MaxExpInterval),
-// 		},
-// 	}
-// }
 
 func setupHandlerWrappers(svc micro.Service, opts *ServiceOptions) {
 	// 设置 Server Handler Wrappers
@@ -209,17 +171,12 @@ func setupHandlerWrappers(svc micro.Service, opts *ServiceOptions) {
 	}
 
 	srvWrappers = append(srvWrappers,
-		// 默认的的 wrappers
+		// 默认的 wrappers
 		wsvc.NewHandlerWrapper(svc),
-		// wfm.FormatMetadataWrapper,
 		wcid.CidWrapper,
 		wme.MicroErrWrapper,
 		wlog.LogWrapper,
 	)
-
-	// if enableJwt {
-	// 	srvWrappers = append(srvWrappers, wjwt.NewHandlerWrapper(jwtOption))
-	// }
 
 	// 自定义 post
 	if len(opts.PostServerHandlerWrappers) > 0 {
@@ -235,7 +192,7 @@ func setupHandlerWrappers(svc micro.Service, opts *ServiceOptions) {
 	}
 
 	clientWrappers = append(clientWrappers,
-		// 默认的的 wrappers
+		// 默认的 wrappers
 		wsvc.NewClientWrapper(svc),
 	)
 	if len(opts.PostClientWrappers) > 0 {
