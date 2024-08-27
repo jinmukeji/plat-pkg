@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     environment {
-        GOROOT="/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/go_1.22/go"
+       GOROOT="/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/go_1.22/go"
         GOPATH="/var/go"
         GOBIN="${env.GOPATH}/bin"
         PATH="${env.GOBIN}:${env.GOROOT}/bin:${env.PATH}"
@@ -41,7 +41,10 @@ pipeline{
        
      }
 
-   
+    post {
+        always {
+            sh label: '', script: ''
+  }
         success {
             emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
