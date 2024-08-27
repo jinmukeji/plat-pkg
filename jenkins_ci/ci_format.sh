@@ -1,5 +1,6 @@
+#!/bin/bash
 # 代码格式化
-CUR=`dirname $0`
+CUR=$(dirname $0)
 cd ${CUR}/..
 set -e
 make format
