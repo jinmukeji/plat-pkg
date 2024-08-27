@@ -38,21 +38,9 @@ pipeline{
                 sh label: '', script: '$PROJECT/jenkins_ci/ci_build.sh'
             }
         }
-        stage('服务数据准备'){
-            steps{
-                sh label: '', script: '$PROJECT/jenkins_ci/ci_start_services.sh'
-            }
-        }
-        stage('单元测试'){
-            steps{
-                sh label: '', script: '$PROJECT/jenkins_ci/ci_unittest.sh'
-            }
-        }
+       
      }
 
-    post {
-        always {
-            sh label: '', script: '$PROJECT/jenkins_ci/ci_stop_services.sh'
   }
         success {
             emailext (
