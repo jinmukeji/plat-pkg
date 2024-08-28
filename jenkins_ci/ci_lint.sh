@@ -7,4 +7,4 @@ go get -u google.golang.org/grpc
 go mod vendor
 export GO111MODULE=on
 
-# make lint
+make lint
