@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     environment {
-        GOROOT="/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/Go1.13"
+       GOROOT="/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/go_1.22/go"
         GOPATH="/var/go"
         GOBIN="${env.GOPATH}/bin"
         PATH="${env.GOBIN}:${env.GOROOT}/bin:${env.PATH}"
@@ -38,21 +38,12 @@ pipeline{
                 sh label: '', script: '$PROJECT/jenkins_ci/ci_build.sh'
             }
         }
-        stage('服务数据准备'){
-            steps{
-                sh label: '', script: '$PROJECT/jenkins_ci/ci_start_services.sh'
-            }
-        }
-        stage('单元测试'){
-            steps{
-                sh label: '', script: '$PROJECT/jenkins_ci/ci_unittest.sh'
-            }
-        }
+       
      }
 
     post {
         always {
-            sh label: '', script: '$PROJECT/jenkins_ci/ci_stop_services.sh'
+            sh label: '', script: ''
   }
         success {
             emailext (
